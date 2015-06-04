@@ -13,11 +13,11 @@ public interface ContactManager {
 	 * Dealing with the child entity - Contact
 	 *
 	 */
-	public String removeContact(int id);
+	public String removeContact(String id);
 	
 	public Contact addContact(Contact item);
 	
-	public Contact getContact(int id);
+	public Contact getContact(String id);
 	
 	public List<Contact> getContacts();
 	
