@@ -13,11 +13,11 @@ public interface ItemManager {
 	 * Dealing with the child entity - Item
 	 *
 	 */
-	public String removeItem(int id);
+	public String removeItem(String id);
 	
 	public Item addItem(Item item);
 	
-	public Item getItem(int id);
+	public Item getItem(String id);
 	
 	public List<Item> getItems();
 	
