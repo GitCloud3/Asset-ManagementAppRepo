@@ -18,7 +18,7 @@ public class ItemBean implements ItemManager {
 	private EntityManager em;
 	private static final Logger log = Logger.getLogger(ItemBean.class);
 	
-	public String removeItem(int id) {
+	public String removeItem(String id) {
 		// TODO Auto-generated method stub
 		log.info("em: removeItem");
 		Item item = em.find(Item.class, id);
@@ -33,7 +33,7 @@ public class ItemBean implements ItemManager {
 		return item;
 	}
 
-	public Item getItem(int id) {
+	public Item getItem(String id) {
 		// TODO Auto-generated method stub
 		log.info("em: getItem");
 		Item item = em.find(Item.class, id);
