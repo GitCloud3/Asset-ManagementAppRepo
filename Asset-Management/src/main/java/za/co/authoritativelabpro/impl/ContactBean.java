@@ -18,7 +18,7 @@ public class ContactBean implements ContactManager {
 	private EntityManager em;
 	private static final Logger log = Logger.getLogger(ContactBean.class);
 	
-	public String removeContact(int id) {
+	public String removeContact(String id) {
 		// TODO Auto-generated method stub
 		log.info("em: removeContact");
 		Contact contact = em.find(Contact.class, id);
