@@ -17,7 +17,7 @@ public interface ItemManager {
 	
 	public Item addItem(Item item);
 	
-	public Item getItem(String id);
+	public List<Item> getItem(String id);
 	
 	public List<Item> getItems();
 	
