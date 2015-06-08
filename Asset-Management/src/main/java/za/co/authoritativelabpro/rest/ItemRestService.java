@@ -65,7 +65,7 @@ public class ItemRestService {
 	@GET 
 	@Path("getItem/{id:\\d+}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Item getItem(@PathParam("id") String id){
+	public List<Item> getItem(@PathParam("id") String id){
 		
 		return itemManager.getItem(id);
 	}
