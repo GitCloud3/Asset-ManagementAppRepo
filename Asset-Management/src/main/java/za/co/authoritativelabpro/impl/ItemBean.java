@@ -1,14 +1,17 @@
 package za.co.authoritativelabpro.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.jboss.logging.Logger;
 
 import za.co.authoritativelabpro.api.ItemManager;
+import za.co.authoritativelabpro.model.Contact;
 import za.co.authoritativelabpro.model.Item;
 
 @Stateless
@@ -33,12 +36,15 @@ public class ItemBean implements ItemManager {
 		return item;
 	}
 
-	public Item getItem(String id) {
+	@SuppressWarnings("unchecked")
+	public List<Item> getItem(String ownerId) {
 		// TODO Auto-generated method stub
 		log.info("em: getItem");
-		Item item = em.find(Item.class, id);
-		return item;
+		Query query = em.createQuery("SELECT i FROM Item i WHERE i.ownerId = ?1");
+		query.setParameter(1, ownerId);
+		return new ArrayList<Item>(query.getResultList());
 	}
+
 
 	public List<Item> getItems() {
 		// TODO Auto-generated method stub

@@ -42,9 +42,7 @@ public class OwnerBean implements OwnerManager {
 
 	public List<Owner> getOwners() {
 		// TODO Auto-generated method stub
-		System.out.println("there------------------------------------");
 		List<Owner> owner = em.createQuery("SELECT o FROM Owner o", Owner.class).getResultList();
-		System.out.println("left------------------------------------");
 		return owner;
 	}
 
