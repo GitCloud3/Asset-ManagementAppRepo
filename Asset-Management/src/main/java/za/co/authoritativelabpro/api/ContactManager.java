@@ -17,7 +17,7 @@ public interface ContactManager {
 	
 	public Contact addContact(Contact item);
 	
-	public Contact getContact(int id);
+	public List<Contact> getContact(String ownerId);
 	
 	public List<Contact> getContacts();
 	
