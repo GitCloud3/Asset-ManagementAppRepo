@@ -66,7 +66,7 @@ public class ContactRestService {
 	@GET 
 	@Path("getContact/{id:\\d+}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Contact getContact(@PathParam("id") String id){
+	public List<Contact> getContact(@PathParam("id") String id){
 		
 		return contactManager.getContact(id);
 	}
