@@ -1,10 +1,12 @@
 package za.co.authoritativelabpro.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.jboss.logging.Logger;
 
@@ -33,11 +35,13 @@ public class ContactBean implements ContactManager {
 		return contact;
 	}
 
-	public Contact getContact(int id) {
+	@SuppressWarnings("unchecked")
+	public List<Contact> getContact(String ownerId) {
 		// TODO Auto-generated method stub
 		log.info("em: getContact");
-		Contact contact = em.find(Contact.class, id);
-		return contact;
+		Query query = em.createQuery("SELECT c FROM Contact c WHERE c.ownerId = ?1");
+		query.setParameter(1, ownerId);
+		return new ArrayList<Contact>(query.getResultList());
 	}
 
 	public List<Contact> getContacts() {
