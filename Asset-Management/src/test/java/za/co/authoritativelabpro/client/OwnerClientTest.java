@@ -1,5 +1,10 @@
 package za.co.authoritativelabpro.client;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -10,20 +15,25 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.junit.Assert;
 import org.junit.Test;
 
+import za.co.authoritativelabpro.hmac.UrlSignerClient;
 import za.co.authoritativelabpro.model.Item;
 import za.co.authoritativelabpro.model.Owner;
 
 public class OwnerClientTest {
+	UrlSignerClient us = new UrlSignerClient();
+	
 	static final String ROOT_URL = "http://localhost:8080/Asset-Management/declaration-ws/";
 
 	@Test
-	public void getOwners() {
+	public void getOwners() throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException{
+		
 		ResteasyClient client = new ResteasyClientBuilder().build();
-		ResteasyWebTarget target = client.target(ROOT_URL + "getOwners");
+		
+		ResteasyWebTarget target = client.target(us.makeRESRCall(ROOT_URL + "getOwners", "unisa", "35125154dsad4da25="));
 
 		Response response = target.request().get();
 
-		System.out.println("HTTP status" + response.getStatus());
+		System.out.println("HTTP status: " + response.getStatus());
 		// Read output in string format
 		String owners = response.readEntity(String.class);
 
