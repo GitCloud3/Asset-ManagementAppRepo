@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -65,7 +66,7 @@ public class OwnerRestService {
 			builder = Response.ok(ownerManager.getOwners());
 		}
 		else{	
-			builder = Response.status(Response.Status.UNAUTHORIZED).entity("Cunsumer not Authorized");
+			builder = Response.status(Response.Status.UNAUTHORIZED).entity("Cunsumer not authorized to get read owners");
 		}
 		
 		return builder.build();
@@ -83,29 +84,65 @@ public class OwnerRestService {
 	@PUT
 	@Path("updateOwner")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response update(Owner owner){
-		System.out.println("Overwrite: "+owner.toString());
-		String result = owner.toString();
-		System.out.println(result);
-		ownerManager.updateOwner(owner);
-		return Response.ok(result).build();
+	public Response update(Owner owner, @QueryParam("clientId") String clientId, @QueryParam("signature") String signature) throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException {
+		
+		Response.ResponseBuilder builder = null;
+		System.out.println("Client generated key:"+signature);
+		
+		String resourceUrl = uriInfo.getAbsolutePath().toString();
+		
+		String sign = signer.calculate(resourceUrl, clientId,UNISA_SHARED_KEY);
+		
+		if(sign.equals(signature)){
+			ownerManager.updateOwner(owner);
+			
+			builder = Response.status(Response.Status.ACCEPTED).entity("Cunsumer update request was accepted");;
+		}
+		else{
+			builder = Response.status(Response.Status.UNAUTHORIZED).entity("Cunsumer not authorized to update records");		
+		}
+		return builder.build();
+			
 	}
 	
 	@GET 
 	@Path("getOwner/{id:\\d+}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Owner getOwner(@PathParam("id") String id){
+	public Response getOwner(@PathParam("id") String id, @QueryParam("clientId") String clientId, @QueryParam("signature") String signature) throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException{
 		
-		return ownerManager.getOwner(id);
+		Response.ResponseBuilder builder = null;
+		
+		System.out.println("Client generated key:"+signature);
+		
+		String resourceUrl = uriInfo.getAbsolutePath().toString();
+		
+		String sign = signer.calculate(resourceUrl, clientId,UNISA_SHARED_KEY);
+		
+		System.out.println("Server generated key:"+sign);
+		
+		if(sign.equals(signature)){
+			log.info("getOwner");
+			builder = Response.ok(ownerManager.getOwner(id));
+		}
+		else{	
+			builder = Response.status(Response.Status.UNAUTHORIZED).entity("Cunsumer not Authorized");
+		}
+		
+		return builder.build();
 	}
 	
 	//@DELETE
 	@Path("removeOwner/{id:\\d+}")
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public void removeOwner(@PathParam("id") String id){
+	public Response removeOwner(@PathParam("id") String id){
+		
+		System.out.println("++++++++++++++++++++++++++++++++++++++");
+		System.out.println("id returned: "+id);
 		log.info("remove");
 		System.out.println(id);
 		ownerManager.removeOwner(id);
+		
+		return Response.noContent().build();
 	}
 	
 }
