@@ -29,7 +29,7 @@ public class OwnerClientTest {
 		
 		ResteasyClient client = new ResteasyClientBuilder().build();
 		
-		ResteasyWebTarget target = client.target(us.makeRESRCall(ROOT_URL + "getOwners", "unisa", "35125154dsad4da25="));
+		ResteasyWebTarget target = client.target(us.makeRESRCall(ROOT_URL + "getOwners", "unisa", "25125154dsad4da25="));
 
 		Response response = target.request().get();
 
@@ -42,12 +42,12 @@ public class OwnerClientTest {
 	}
 
 	@Test
-	public void getOwner() {
+	public void getOwner() throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException {
 		String ownerId = "9012316127089";
 
 		ResteasyClient client = new ResteasyClientBuilder().build();
 		ResteasyWebTarget target = client
-				.target(ROOT_URL + "getOwner/" + ownerId);
+				.target(us.makeRESRCall(ROOT_URL + "getOwner/" + ownerId, "unisa", "25125154dsad4da25="));
 
 		Response response = target.request().get();
 
@@ -74,28 +74,35 @@ public class OwnerClientTest {
 	}
 
 	@Test
-	public void updateOwner() {
-		String ownerId = "9012316127089";
+	public void updateOwner() throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException{
+		String ownerId = "9309070361808";
 		
 		//Read the owner entity to be updated first
 		
 		ResteasyClient client = new ResteasyClientBuilder().build();
-		ResteasyWebTarget target = client.target(ROOT_URL + "updateOwner/" + ownerId);
+		ResteasyWebTarget target = client.target(us.makeRESRCall(ROOT_URL + "getOwner/" + ownerId, "unisa", "25125154dsad4da25="));
 
 		Response response = target.request().get();
 		System.out.println("response:"+response.getStatus());
 		
 		Owner owner = response.readEntity(Owner.class);
-		System.out.println("Owner:"+owner);
+		
+		System.out.println("Owner:"+owner.toString());
+		
 		//From the fetched entity set new data to it and then send it back to be updated
 		
-		owner.setName("Siboniso Ronald Pro");
+		owner.setName("Mag-e My_Life!");
+		
 		client = new ResteasyClientBuilder().build();
-		target = client.target(ROOT_URL + "update");
+		target = client.target(us.makeRESRCall(ROOT_URL + "updateOwner", "unisa", "25125154dsad4da25="));
 		response = target.request().put(
 				Entity.entity(owner, MediaType.APPLICATION_JSON));
 
-		Assert.assertEquals(response.getStatus(), 200);
+		System.out.println("HTTP status" + response.getStatus());
+		// Read output in string format
+		String owners = response.readEntity(String.class);
+
+		System.out.println(owners);
 	}
 
 }
