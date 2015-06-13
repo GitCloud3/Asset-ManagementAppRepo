@@ -22,6 +22,7 @@ public class OwnerBean implements OwnerManager {
 		// TODO Auto-generated method stub
 		log.info("em: removeOwner");
 		Owner owner = em.find(Owner.class, id);
+		System.out.println("Override: "+owner.toString());
 		em.remove(owner);
 		return "Owner removed";
 	}
