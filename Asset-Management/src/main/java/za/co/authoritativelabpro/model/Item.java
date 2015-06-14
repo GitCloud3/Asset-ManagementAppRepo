@@ -113,5 +113,12 @@ public class Item {
 	public void setDeclarationDate(Date declarationDate) {
 		this.declarationDate = declarationDate;
 	}
-	
+	@Override
+	public String toString() {
+		return "Item [serialnumber=" + serialnumber + ", ownerId=" + ownerId
+				+ ", type=" + type + ", name=" + name + ", modelnumber="
+				+ modelnumber + ", manufacture=" + manufacture + ", color="
+				+ color + ", declarerId=" + declarerId + ", declarationDate="
+				+ declarationDate + "]";
+	}
 }
