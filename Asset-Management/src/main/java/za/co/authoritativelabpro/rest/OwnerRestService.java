@@ -37,19 +37,17 @@ public class OwnerRestService {
 	@Context
 	private UriInfo uriInfo;
 	
-	UrlSigner signer = new UrlSigner();
+	private UrlSigner signer = new UrlSigner();
 	
 	private static final Logger log = Logger.getLogger(OwnerRestService.class);
 	
-	private static final String UNISA_SHARED_KEY = "25125154dsad4da25=";
-
-	
+	private static final String HMAC_SHARED_KEY = "25125154dsad4da25=";
 	
 	@Path("getOwners")
 	@GET
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getOwners(@QueryParam("clientId") String clientId, @QueryParam("signature") String signature) throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException{	
+	public Response getOwners(@QueryParam("clientId") String clientId, @QueryParam("signature") String signature) throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException {	
 		
 		Response.ResponseBuilder builder = null;
 		
@@ -57,7 +55,7 @@ public class OwnerRestService {
 		
 		String resourceUrl = uriInfo.getAbsolutePath().toString();
 		
-		String sign = signer.calculate(resourceUrl, clientId,UNISA_SHARED_KEY);
+		String sign = signer.calculate(resourceUrl, clientId,HMAC_SHARED_KEY);
 		
 		System.out.println("Server generated key:"+sign);
 		
@@ -81,7 +79,7 @@ public class OwnerRestService {
 		
 		String resourceUrl = uriInfo.getAbsolutePath().toString();
 		
-		String sign = signer.calculate(resourceUrl, clientId,UNISA_SHARED_KEY);
+		String sign = signer.calculate(resourceUrl, clientId,HMAC_SHARED_KEY);
 		
 		if(sign.equals(signature)){
 			ownerManager.addOwner(owner);
@@ -104,7 +102,7 @@ public class OwnerRestService {
 		
 		String resourceUrl = uriInfo.getAbsolutePath().toString();
 		
-		String sign = signer.calculate(resourceUrl, clientId,UNISA_SHARED_KEY);
+		String sign = signer.calculate(resourceUrl, clientId,HMAC_SHARED_KEY);
 		
 		if(sign.equals(signature)){
 			ownerManager.updateOwner(owner);
@@ -129,7 +127,7 @@ public class OwnerRestService {
 		
 		String resourceUrl = uriInfo.getAbsolutePath().toString();
 		
-		String sign = signer.calculate(resourceUrl, clientId,UNISA_SHARED_KEY);
+		String sign = signer.calculate(resourceUrl, clientId,HMAC_SHARED_KEY);
 		
 		System.out.println("Server generated key:"+sign);
 		
