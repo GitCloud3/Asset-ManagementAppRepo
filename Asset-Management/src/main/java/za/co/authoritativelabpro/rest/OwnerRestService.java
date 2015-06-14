@@ -75,10 +75,23 @@ public class OwnerRestService {
 	@POST
 	@Path("createOwner")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createOwner(Owner owner){
-		String result = owner.toString();
-		ownerManager.addOwner(owner);
-		return Response.ok(result).build();
+	public Response createOwner(Owner owner, @QueryParam("clientId") String clientId, @QueryParam("signature") String signature) throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException {
+		Response.ResponseBuilder builder = null;
+		System.out.println("Client generated key:"+signature);
+		
+		String resourceUrl = uriInfo.getAbsolutePath().toString();
+		
+		String sign = signer.calculate(resourceUrl, clientId,UNISA_SHARED_KEY);
+		
+		if(sign.equals(signature)){
+			ownerManager.addOwner(owner);
+			
+			builder = Response.status(Response.Status.ACCEPTED).entity("Cunsumer request to add new record was approved");;
+		}
+		else{
+			builder = Response.status(Response.Status.UNAUTHORIZED).entity("Cunsumer request to add new record was declined, Consumer not authorized");		
+		}
+		return builder.build();
 	}
 	
 	@PUT
