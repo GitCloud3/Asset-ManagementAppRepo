@@ -25,6 +25,18 @@ public class Contact {
 	private String email;
 	
 	
+	public Contact() {
+		super();
+	}
+	public Contact(int contactId, String ownerId, String telephone, String email) {
+		super();
+		this.contactId = contactId;
+		this.ownerId = ownerId;
+		this.telephone = telephone;
+		this.email = email;
+	}
+
+
 	public int getContactId() {
 		return contactId;
 	}
@@ -49,5 +61,9 @@ public class Contact {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+	@Override
+	public String toString() {
+		return "Contact [contactId=" + contactId + ", ownerId=" + ownerId
+				+ ", telephone=" + telephone + ", email=" + email + "]";
+	}
 }
