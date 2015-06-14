@@ -21,5 +21,7 @@ public interface ContactManager {
 	
 	public List<Contact> getContacts();
 	
+	public Contact getContactByRecordID(int id);
+	
 	public String updateContact(Contact contact);
 }
