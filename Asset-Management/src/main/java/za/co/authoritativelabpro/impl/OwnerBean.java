@@ -1,5 +1,6 @@
 package za.co.authoritativelabpro.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -34,11 +35,13 @@ public class OwnerBean implements OwnerManager {
 		return owner;
 	}
 
-	public Owner getOwner(String id) {
+	public List<Owner> getOwner(String id) {
 		// TODO Auto-generated method stub
 		log.info("em: getOwner");
+		ArrayList<Owner> owners = new ArrayList<Owner>();
 		Owner owner = em.find(Owner.class, id);
-		return owner;
+		owners.add(owner);
+		return owners;
 	}
 
 	public List<Owner> getOwners() {

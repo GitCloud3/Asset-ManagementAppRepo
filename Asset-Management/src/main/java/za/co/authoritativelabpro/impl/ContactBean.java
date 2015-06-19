@@ -20,12 +20,16 @@ public class ContactBean implements ContactManager {
 	private EntityManager em;
 	private static final Logger log = Logger.getLogger(ContactBean.class);
 	
+	@SuppressWarnings("unchecked")
 	public String removeContact(String id) {
 		// TODO Auto-generated method stub
 		log.info("em: removeContact");
-		Contact contact = em.find(Contact.class, id);
-		em.remove(contact);
-		return "Contact removed";
+		
+		Query query = em.createQuery("DELETE FROM Contact c WHERE c.ownerId = ?1");
+		query.setParameter(1, id);
+		query.executeUpdate();
+
+		return "Contact(s) removed";
 	}
 
 	public Contact addContact(Contact contact) {
@@ -43,7 +47,7 @@ public class ContactBean implements ContactManager {
 		query.setParameter(1, ownerId);
 		return new ArrayList<Contact>(query.getResultList());
 	}
-
+	
 	public List<Contact> getContacts() {
 		// TODO Auto-generated method stub
 		List<Contact> contact = em.createQuery("SELECT o FROM Contact o", Contact.class).getResultList();
@@ -55,6 +59,14 @@ public class ContactBean implements ContactManager {
 		log.info("em: updateContact");
 		em.merge(contact);
 		return "Contact updated!";
+	}
+
+	@Override
+	public Contact getContactByRecordID(int id) {
+		// TODO Auto-generated method stub
+		log.info("em: getContact");
+		
+		return em.find(Contact.class, id);
 	}
 
 }
