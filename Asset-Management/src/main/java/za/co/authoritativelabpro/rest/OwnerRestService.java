@@ -119,25 +119,12 @@ public class OwnerRestService {
 	@GET 
 	@Path("getOwner/{id:\\d+}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getOwner(@PathParam("id") String id, @QueryParam("clientId") String clientId, @QueryParam("signature") String signature) throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException{
+	public Response getOwner(@PathParam("id") String id){
 		
 		Response.ResponseBuilder builder = null;
 		
-		System.out.println("Client generated key:"+signature);
-		
-		String resourceUrl = uriInfo.getAbsolutePath().toString();
-		
-		String sign = signer.calculate(resourceUrl, clientId,HMAC_SHARED_KEY);
-		
-		System.out.println("Server generated key:"+sign);
-		
-		if(sign.equals(signature)){
-			log.info("getOwner");
-			builder = Response.ok(ownerManager.getOwner(id));
-		}
-		else{	
-			builder = Response.status(Response.Status.UNAUTHORIZED).entity("Cunsumer not Authorized");
-		}
+		log.info("getOwner");
+		builder = Response.ok(ownerManager.getOwner(id));
 		
 		return builder.build();
 	}

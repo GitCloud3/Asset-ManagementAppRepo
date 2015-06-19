@@ -36,8 +36,8 @@ public class ItemRestService {
 	@GET
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Item> getItem(){
-		log.info("getItems");;
+	public List<Item> getItems(){
+		log.info("getItems");
 		return itemManager.getItems();
 	}
 	
