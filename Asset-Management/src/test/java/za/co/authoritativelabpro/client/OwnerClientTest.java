@@ -88,7 +88,7 @@ public class OwnerClientTest {
 
 		ResteasyClient client = new ResteasyClientBuilder().build();
 		ResteasyWebTarget target = client
-				.target(us.makeRESRCall(ROOT_URL + "getOwner/" + ownerId, CLIENT_ID, HMAC_SHARED_KEY));
+				.target(ROOT_URL + "getOwner/" + ownerId);
 
 		Response response = target.request().get();
 
@@ -117,14 +117,15 @@ public class OwnerClientTest {
 	@Test
 	public void updateOwner() throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException{
 		String ownerId = "9309070361808";
+		String recordId = "11";
 		
 		//Read the owner entity to be updated first
 		
 		ResteasyClient client = new ResteasyClientBuilder().build();
-		ResteasyWebTarget target = client.target(us.makeRESRCall(ROOT_URL + "getOwner/" + ownerId, CLIENT_ID, HMAC_SHARED_KEY));
+		ResteasyWebTarget target = client.target(us.makeRESRCall(ROOT_URL + "getContact/" + ownerId, CLIENT_ID, HMAC_SHARED_KEY));
 
 		Response response = target.request().get();
-		System.out.println("response:"+response.getStatus());
+		System.out.println("response: "+response.getStatus());
 		
 		Owner owner = response.readEntity(Owner.class);
 		

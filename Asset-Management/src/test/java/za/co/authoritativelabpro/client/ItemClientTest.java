@@ -33,7 +33,7 @@ public class ItemClientTest {
 
 	@Test
 	public void getItem() {
-		String serialNumber = "254859636555245";
+		String serialNumber = "55DDEF5HT4H8";
 
 		ResteasyClient client = new ResteasyClientBuilder().build();
 		ResteasyWebTarget target = client
