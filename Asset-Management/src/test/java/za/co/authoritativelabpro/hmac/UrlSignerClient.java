@@ -65,8 +65,12 @@ public class UrlSignerClient {
 		// convert the signature to 'web safe' base 64
 		signature = signature.replace('+', '-');
 		signature = signature.replace('/', '_');
+		
+		System.out.println("plain signature:"+ signature);
 
 		String encodedSignature = URLEncoder.encode(signature, "UTF-8");
+		
+		System.out.println("encoded signature:"+ encodedSignature);
 		
 		return resource + "&signature=" + encodedSignature;
 	}
