@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="AssetManagement">
+	<head lang="en">
+
+		<meta charset="UTF-8">
+
+	</head>
+	<body ng-controller="listOwnersCtrl">
+		<div>
+			<div >
+					Search: <input type="text" value="" placeholder="Global search" ng-model="search"/>
+					<table border="0">
+						<tr>
+							<td><strong>ID#</strong></td>
+							<td><strong>Title</strong></td>
+							<td><strong>Name</strong></td>
+							<td><strong>Surname</strong></td>
+							<td><strong>Gender</strong></td>
+							<td><strong>Race</strong></td>
+							<td><strong>Country</strong></td>
+							<td><strong>Province</strong></td>
+							<td><strong>City</strong></td>
+						</tr>
+						<tr ng-repeat="data in myData | filter : search">
+							<td>{{data.ownerId}}</td>
+							<td>{{data.title}}</td>
+							<td>{{data.name}}</td>
+							<td>{{data.surname}}</td>
+							<td>{{data.gender}}</td>
+							<td>{{data.race}}</td>
+							<td>{{data.country}}</td>
+							<td>{{data.province}}</td>
+							<td>{{data.city}}</td>
+							<td><a ng-href="#/contacts" data-ng-click="contacts(data)">Contact Details</a></td>
+						</tr>
+					</table>
+			</div>
+		</div>
+	</body>
+</html>
