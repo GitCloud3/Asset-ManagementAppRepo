@@ -8,11 +8,11 @@ var app = angular.module('AssetManagement', ['ngRoute']);
 app.config(function($routeProvider){
 	//setup routes
 	$routeProvider
-		.when('/owners', {
+		.when('/owners/:ownerId', {
 			templateUrl:'owners.html',
 			controller:'listOwnersCtrl'
 		})
-		.when('/contacts', {
+		.when('/contacts/:ownerId', {
 			templateUrl:'contacts.html',
 			controller:'listContactsCtrl'
 		})
@@ -47,22 +47,21 @@ app.controller('listCtrl',function($scope, $http)
 	}
 });
 
-app.controller('listOwnersCtrl',function($scope, $http)
+app.controller('listOwnersCtrl',function($scope, $http, $routeParams)
 {
+	var ownerId = $routeParams.ownerId;
 
-		alert("killing");
-
-	$http.get('http://localhost:8080/Asset-Management/declaration-ws/getOwners?clientId=unisa&signature=v6SKoryUPxWONw84oi1F6ekXsXE%3D').success(function(response)
+	$http.get('http://localhost:8080/Asset-Management/declaration-ws/getOwner/'+ownerId+'?clientId=unisa&signature=dQ0sIQxLHNjcMQo1-YTDSi9J8GU%3D').success(function(response)
 	{
 		$scope.myData = response;
 	});
 
 });
 
-app.controller('listContactsCtrl',function($scope, $http)
+app.controller('listContactsCtrl',function($scope, $http, $routeParams)
 {
-
-	$http.get('http://localhost:8080/Asset-Management/declaration-ws/getContacts?clientId=unisa&signature=jnnx5vPpB0jhFH6qJKvpAM_c0w4%3D').success(function(response)
+	var ownerId = $routeParams.ownerId;
+	$http.get('http://localhost:8080/Asset-Management/declaration-ws/getContact/'+ownerId+'?clientId=unisa&signature=jnnx5vPpB0jhFH6qJKvpAM_c0w4%3D').success(function(response)
 	{
 		$scope.myData = response;
 	});

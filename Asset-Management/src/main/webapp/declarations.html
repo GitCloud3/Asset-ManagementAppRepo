@@ -20,7 +20,8 @@
 							<td><strong>Color</strong></td>
 							<td><strong>Declarer ID#</strong></td>
 							<td><strong>Date</strong></td>
-							<td></td>
+							<td><strong>Remove</strong></td>
+							<td><strong>View Owner</strong></td>
 						</tr>
 						<tr ng-repeat="data in myData | filter : search">
 							<td>{{data.serialnumber}}</td>
@@ -33,6 +34,7 @@
 							<td>{{data.declarerId}}</td>
 							<td>{{data.declarationDate}}</td>
 							<td><a href="" ng-click="deleteRecord(data)">Delete</a></td>
+							<td><a ng-href="#/owners/{{data.ownerId}}">Owner</a></td>
 						</tr>
 					</table>
 			</div>
