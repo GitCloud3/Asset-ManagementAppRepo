@@ -8,8 +8,13 @@ var app = angular.module('AssetManagement', ['ngRoute']);
 app.config(function($routeProvider){
 	//setup routes
 	$routeProvider
-		.when('/test', {
-			templateUrl:'test.html'
+		.when('/owners', {
+			templateUrl:'owners.html',
+			controller:'listOwnersCtrl'
+		})
+		.when('/contacts', {
+			templateUrl:'contacts.html',
+			controller:'listContactsCtrl'
 		})
 		.when('/list', {
 			templateUrl:'declarations.html',
@@ -37,6 +42,31 @@ app.controller('listCtrl',function($scope, $http)
 	$scope.deleteRecord = function(row){
 		$scope.myData.splice($scope.myData.indexOf(row),1);
 	}
+	$scope.viewOwner = function(row){
+		//$scope.myData.splice($scope.myData.indexOf(row),1);
+	}
+});
+
+app.controller('listOwnersCtrl',function($scope, $http)
+{
+
+		alert("killing");
+
+	$http.get('http://localhost:8080/Asset-Management/declaration-ws/getOwners?clientId=unisa&signature=v6SKoryUPxWONw84oi1F6ekXsXE%3D').success(function(response)
+	{
+		$scope.myData = response;
+	});
+
+});
+
+app.controller('listContactsCtrl',function($scope, $http)
+{
+
+	$http.get('http://localhost:8080/Asset-Management/declaration-ws/getContacts?clientId=unisa&signature=jnnx5vPpB0jhFH6qJKvpAM_c0w4%3D').success(function(response)
+	{
+		$scope.myData = response;
+	});
+
 });
 
 app.controller('addOwnerCtrl',function($scope, $http) {
