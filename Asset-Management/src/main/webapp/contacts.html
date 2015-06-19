@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="AssetManagement">
+	<head lang="en">
+
+		<meta charset="UTF-8">
+
+	</head>
+	<body ng-controller="listContactsCtrl">
+		<div>
+			<div >
+					Search: <input type="text" value="" placeholder="Global search" ng-model="search"/>
+					<table border="0">
+						<tr>
+							<td><strong>Telephone#</strong></td>
+							<td><strong>Email address<address class="">
+						</tr>
+						<tr ng-repeat="data in myData | filter : search">
+							<td>{{data.telephone}}</td>
+							<td>{{data.email}}</td>
+						</tr>
+					</table>
+			</div>
+		</div>
+	</body>
+</html>
