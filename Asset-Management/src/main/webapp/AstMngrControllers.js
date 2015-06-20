@@ -16,6 +16,14 @@ app.config(function($routeProvider){
 			templateUrl:'contacts.html',
 			controller:'listContactsCtrl'
 		})
+		.when('/addcontact', {
+			templateUrl:'addcontact.html',
+			controller:'addContactCtrl'
+		})
+		.when('/additem', {
+			templateUrl:'additem.html',
+			controller:'addItemCtrl'
+		})
 		.when('/list', {
 			templateUrl:'declarations.html',
 			controller:'listCtrl'
@@ -68,9 +76,9 @@ app.controller('listContactsCtrl',function($scope, $http, $routeParams)
 
 });
 
-app.controller('addOwnerCtrl',function($scope, $http) {
+app.controller('addOwnerCtrl',function($scope, $http, $location) {
 
-    $scope.sendPost = function() {
+  /*  $scope.sendPost = function() {
 			var data = $.param({
 				json: JSON.stringify({ownerId:$scope.title,title:$scope.title,name:$scope.name,surname:$scope.surname,gender:$scope.gender,
 					race:$scope.race,country:$scope.country,province:$scope.province,city:$cope.city
@@ -79,6 +87,22 @@ app.controller('addOwnerCtrl',function($scope, $http) {
         $http.post('http://localhost:8080/Asset-Management/declaration-ws/createOwner', data).success(function(data, status) {
             $scope.hello = data;
         })
-    }
+    }*/
+		$scope.step2 = function(path){
+			$location.path(path);
+		}
 
+});
+
+app.controller('addContactCtrl',function($scope, $http, $location) {
+
+
+		$scope.step3 = function(path){
+			$location.path(path);
+		}
+});
+
+app.controller('addItemCtrl',function($scope, $http, $location) {
+
+	alert('final stage');
 });
