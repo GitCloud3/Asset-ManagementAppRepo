@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="AssetManagement">
+	<head lang="en">
+
+		<script type="text/javascript"
+				src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+
+		<script type="text/javascript"
+				src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+
+		<script
+				src="AstMngrControllers.js"></script>
+
+		<style type="text/css">
+		    .container {
+		        width: 500px;
+		        clear: both;
+		    }
+		    .container input {
+		        width: 100%;
+		        clear: both;
+		    }
+
+		    </style>
+
+		<meta charset="UTF-8">
+
+	</head>
+	<body ng-controller="addItemCtrl">
+		<div class="container" >
+      <form novalidate ng-submit="sendPost()">
+        Type: <input type="text" ng-model="type"/><br/>
+        Name: <input type="text" ng-model="name"/><br/>
+        Serial#: <input type="text" ng-model="serial"/><br/>
+        Manufacture: <input type="text" ng-model="manufacture"/><br/>
+        Model#: <input type="text" ng-model="model"/><br/>
+        Color: <input type="text" ng-model="color"/><br/>
+        Declarer Id#: <input type="text" ng-model="declarer"/><br/>
+				Owner Id#: <input type="text" ng-model="owner"/><br/>
+      </form>
+			<button type="submit">send</button>
+
+		</div>
+	</body>
+	</html>
