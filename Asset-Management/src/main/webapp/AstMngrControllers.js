@@ -47,12 +47,16 @@ app.controller('listCtrl',function($scope, $http)
 	{
 		$scope.myData = response;
 	});
+
 	$scope.deleteRecord = function(row){
+		$http.delete('http://localhost:8080/Asset-Management/declaration-ws/removeOwner/'+row.ownerId).success(function(response)
+		{
+			$scope.myData = response;
+		});
+
 		$scope.myData.splice($scope.myData.indexOf(row),1);
 	}
-	$scope.viewOwner = function(row){
-		//$scope.myData.splice($scope.myData.indexOf(row),1);
-	}
+
 });
 
 app.controller('listOwnersCtrl',function($scope, $http, $routeParams)
