@@ -11,17 +11,27 @@
 		<script
 				src="AstMngrControllers.js"></script>
 
-		<style type="text/css">
-		    .container {
-		        width: 500px;
-		        clear: both;
-		    }
-		    .container input {
-		        width: 100%;
-		        clear: both;
-		    }
+		<style>
+		label {
+			display: inline-block;
+			width: 120px;
+			vertical-align: middle;
+		}
 
-		    </style>
+		input {
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		input.ng-invalid {
+			border: solid red 2px;
+		}
+
+		textarea {
+			width: 300px;
+			height: 80px;
+		}
+		</style>
 
 		<meta charset="UTF-8">
 
@@ -29,14 +39,29 @@
 	<body ng-controller="addItemCtrl">
 		<div class="container" >
       <form novalidate ng-submit="sendPost()">
-        Type: <input type="text" ng-model="type"/><br/>
-        Name: <input type="text" ng-model="name"/><br/>
-        Serial#: <input type="text" ng-model="serial"/><br/>
-        Manufacture: <input type="text" ng-model="manufacture"/><br/>
-        Model#: <input type="text" ng-model="model"/><br/>
-        Color: <input type="text" ng-model="color"/><br/>
-        Declarer Id#: <input type="text" ng-model="declarer"/><br/>
-				Owner Id#: <input type="text" ng-model="owner"/><br/>
+				<label>Type:</label>
+				<input type="text" ng-model="type"/><br/>
+
+				<label>Name:</label>
+				<input type="text" ng-model="name"/><br/>
+
+				<label>Serial number:</label>
+				<input type="text" ng-model="serial"/><br/>
+
+				<label>Manufacture:</label>
+				<input type="text" ng-model="manufacture"/><br/>
+
+				<label>Model number:</label>
+				<input type="text" ng-model="model"/><br/>
+
+				<label>Color:</label>
+				<input type="text" ng-model="color"/><br/>
+
+				<label>Declarer ID#:</label>
+				<input type="text" ng-model="declarer"/><br/>
+
+				<label>Owner ID#:</label>
+				<input type="text" ng-model="owner"/><br/>
       </form>
 			<button type="submit">send</button>
 
