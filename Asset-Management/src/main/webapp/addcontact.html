@@ -11,14 +11,39 @@
 		<script
 				src="AstMngrControllers.js"></script>
 
+				<style>
+				label {
+					display: inline-block;
+					width: 120px;
+					vertical-align: middle;
+				}
+
+				input {
+					display: inline-block;
+					vertical-align: middle;
+				}
+
+				input.ng-invalid {
+					border: solid red 2px;
+				}
+
+				textarea {
+					width: 300px;
+					height: 80px;
+				}
+				</style>
+
 		<meta charset="UTF-8">
 
 	</head>
 	<body ng-controller="addContactCtrl">
 		<div class="container">
       <form>
-        Email: <input type="text" ng-model="email"/><br/>
-        Telephone: <input type="text" ng-model="telephone"/><br/>
+				<label>Email:</label>
+				<input type="text" ng-model="email"/><br/>
+
+				<label>Telephone:</label>
+				<input type="text" ng-model="telephone"/><br/>
       </form>
 			<button type="submit" ng-click="step3('/additem')">send</button>
 		</div>

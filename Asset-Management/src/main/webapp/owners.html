@@ -20,6 +20,7 @@
 							<td><strong>Country</strong></td>
 							<td><strong>Province</strong></td>
 							<td><strong>City</strong></td>
+							<td><strong>Contact Details</strong></td>
 						</tr>
 						<tr ng-repeat="data in myData | filter : search">
 							<td>{{data.ownerId}}</td>
@@ -31,7 +32,7 @@
 							<td>{{data.country}}</td>
 							<td>{{data.province}}</td>
 							<td>{{data.city}}</td>
-							<td><a ng-href="#/contacts/{{data.ownerId}}" data-ng-click="contacts(data)">Contact Details</a></td>
+							<td><a ng-href="#/contacts/{{data.ownerId}}" data-ng-click="contacts(data)">Contact</a></td>
 						</tr>
 					</table>
 			</div>

@@ -1,44 +1,69 @@
 <!DOCTYPE html>
 <html ng-app="AssetManagement">
-	<head lang="en">
+<head lang="en">
 
-		<script type="text/javascript"
-				src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
 
-		<script type="text/javascript"
-				src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
 
-		<script
-				src="AstMngrControllers.js"></script>
+<script src="AstMngrControllers.js"></script>
 
-		<style type="text/css">
-		    .container {
-		        width: 500px;
-		        clear: both;
-		    }
-		    .container input {
-		        width: 100%;
-		        clear: both;
-		    }
+<style>
+label {
+	display: inline-block;
+	width: 120px;
+	vertical-align: middle;
+}
 
-		    </style>
+input {
+	display: inline-block;
+	vertical-align: middle;
+}
 
-		<meta charset="UTF-8">
+input.ng-invalid {
+	border: solid red 2px;
+}
 
-	</head>
-	<body ng-controller="addOwnerCtrl">
-		<div class="container" >
-      <form novalidate ng-submit="sendPost()">
-        Title: <input type="text" ng-model="title"/><br/>
-        Name: <input type="text" ng-model="name"/><br/>
-        Surname: <input type="text" ng-model="surname"/><br/>
-        Gender: <input type="text" ng-model="gender"/><br/>
-        ID #: <input type="text" ng-model="id"/><br/>
-        Race: <input type="text" ng-model="race"/><br/>
-        Country: <input type="text" ng-model="country"/><br/>
-        Province: <input type="text" ng-model="city"/><br/>
-      </form>
-			<button type="submit" ng-click="step2('/addcontact')">send</button>
-		</div>
-	</body>
-	</html>
+textarea {
+	width: 300px;
+	height: 80px;
+}
+</style>
+
+
+<meta charset="UTF-8">
+
+</head>
+<body ng-controller="addOwnerCtrl">
+	<div>
+		<form novalidate ng-submit="submit()">
+			<label>Title:</label>
+			<input type="text" ng-model="title" /><br />
+
+			<label>Fullname(s):</label>
+			<input type="text" ng-model="name" /><br />
+
+			<label>Surname:</label>
+			<input type="text" ng-model="surname" /><br />
+
+			<label>Gender:</label>
+			<input type="text" ng-model="gender" /><br />
+
+			<label>ID number:</label>
+			<input type="text" ng-model="id" /><br />
+
+			<label>Race:</label>
+			<input type="text" ng-model="race" /><br />
+
+			<label>country:</label>
+			<input	type="text" ng-model="country" /><br />
+
+			<label>City:</label>
+			<input type="text" ng-model="city" /><br />
+		</form>
+		<button type="submit" ng-click="step2('/addcontact')">send</button>
+	</div>
+</body>
+</html>
