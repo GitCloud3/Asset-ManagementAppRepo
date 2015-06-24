@@ -1,6 +1,7 @@
 package za.co.authoritativelabpro.rest;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -31,6 +32,7 @@ import com.google.gson.reflect.TypeToken;
 import za.co.authoritativelabpro.api.ContactManager;
 import za.co.authoritativelabpro.api.ContactManager;
 import za.co.authoritativelabpro.api.ContactManager;
+import za.co.authoritativelabpro.converter.ContactParser;
 import za.co.authoritativelabpro.model.Contact;
 import za.co.authoritativelabpro.model.Contact;
 import za.co.authoritativelabpro.model.Owner;
@@ -81,23 +83,22 @@ public class ContactRestService {
 	@POST
 	@Path("createContact")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void createContact(String contacts) {
+	public Response createContact(String contacts) {
 		
-		Gson gs = new Gson();
-		Collection<Contact> c = gs.fromJson(contacts,new TypeToken<List<Contact>>(){}.getType());
+		Response.ResponseBuilder builder = null;
 		
-		//Response.ResponseBuilder builder = null;
+		ContactParser cp = new ContactParser();
 		
-		for(Contact co: c){
-			System.out.println("C: "+co.getEmail());
+		List<Contact> contactList = cp.passser(contacts);
+		
+		for(Contact contact : contactList){
+			contact.setOwnerId("88");
+			contactManager.addContact(contact);
 		}
-			//Contact[] contact = 
-		//}
-		//contactManager.addContact(contacts);
-			
-		//builder = Response.status(Response.Status.ACCEPTED).entity("Cunsumer request to add new record was approved");;
+
+		builder = Response.status(Response.Status.ACCEPTED).entity("Cunsumer request to add new record was approved");;
 		
-		//return builder.build();
+		return builder.build();
 	}
 	
 	@PUT
