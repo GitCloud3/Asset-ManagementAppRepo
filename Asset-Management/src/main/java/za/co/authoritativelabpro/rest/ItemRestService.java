@@ -1,5 +1,6 @@
 package za.co.authoritativelabpro.rest;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -47,6 +48,7 @@ public class ItemRestService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createItem(Item item){
 		String result = item.toString();
+		item.setDeclarationDate(new Date());
 		itemManager.addItem(item);
 		return Response.ok(result).build();
 	}

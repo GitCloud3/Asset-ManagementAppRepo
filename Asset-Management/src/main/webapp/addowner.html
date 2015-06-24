@@ -38,32 +38,37 @@ textarea {
 </head>
 <body ng-controller="addOwnerCtrl">
 	<div>
-		<form novalidate ng-submit="submit()">
-			<label>Title:</label>
-			<input type="text" ng-model="title" /><br />
+		<hr>
+			<form novalidate name="ownerForm" ng-submit="submitOwner()">
+				<label>Title:</label>
+				<input type="text" ng-model="owner.title" /><br />
 
-			<label>Fullname(s):</label>
-			<input type="text" ng-model="name" /><br />
+				<label>Fullname(s):</label>
+				<input type="text" ng-model="owner.name" /><br />
 
-			<label>Surname:</label>
-			<input type="text" ng-model="surname" /><br />
+				<label>Surname:</label>
+				<input type="text" ng-model="owner.surname" /><br />
 
-			<label>Gender:</label>
-			<input type="text" ng-model="gender" /><br />
+				<label>Gender:</label>
+				<input type="text" ng-model="owner.gender" /><br />
 
-			<label>ID number:</label>
-			<input type="text" ng-model="id" /><br />
+				<label>ID number:</label>
+				<input type="text" ng-model="owner.ownerId" /><br />
 
-			<label>Race:</label>
-			<input type="text" ng-model="race" /><br />
+				<label>Race:</label>
+				<input type="text" ng-model="owner.race" /><br />
 
-			<label>country:</label>
-			<input	type="text" ng-model="country" /><br />
+				<label>country:</label>
+				<input	type="text" ng-model="owner.country" /><br />
 
-			<label>City:</label>
-			<input type="text" ng-model="city" /><br />
-		</form>
-		<button type="submit" ng-click="step2('/addcontact')">send</button>
+				<label>Province:</label>
+				<input	type="text" ng-model="owner.province" /><br />
+
+				<label>City:</label>
+				<input type="text" ng-model="owner.city" /><br />
+			</form>
+			<button type="submit" ng-click="step2('/addcontact')">save</button>
+		</hr>
 	</div>
 </body>
 </html>

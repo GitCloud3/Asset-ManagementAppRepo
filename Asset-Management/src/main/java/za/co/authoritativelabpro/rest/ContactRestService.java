@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -23,6 +24,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.jboss.logging.Logger;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import za.co.authoritativelabpro.api.ContactManager;
 import za.co.authoritativelabpro.api.ContactManager;
@@ -77,23 +81,23 @@ public class ContactRestService {
 	@POST
 	@Path("createContact")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createContact(Contact contact, @QueryParam("clientId") String clientId, @QueryParam("signature") String signature) throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException {
-		Response.ResponseBuilder builder = null;
-		System.out.println("Client generated key:"+signature);
+	public void createContact(String contacts) {
 		
-		String resourceUrl = uriInfo.getAbsolutePath().toString();
+		Gson gs = new Gson();
+		Collection<Contact> c = gs.fromJson(contacts,new TypeToken<List<Contact>>(){}.getType());
 		
-		String sign = signer.calculate(resourceUrl, clientId,HMAC_SHARED_KEY);
+		//Response.ResponseBuilder builder = null;
 		
-		if(sign.equals(signature)){
-			contactManager.addContact(contact);
+		for(Contact co: c){
+			System.out.println("C: "+co.getEmail());
+		}
+			//Contact[] contact = 
+		//}
+		//contactManager.addContact(contacts);
 			
-			builder = Response.status(Response.Status.ACCEPTED).entity("Cunsumer request to add new record was approved");;
-		}
-		else{
-			builder = Response.status(Response.Status.UNAUTHORIZED).entity("Cunsumer request to add new record was declined, Consumer not authorized");		
-		}
-		return builder.build();
+		//builder = Response.status(Response.Status.ACCEPTED).entity("Cunsumer request to add new record was approved");;
+		
+		//return builder.build();
 	}
 	
 	@PUT

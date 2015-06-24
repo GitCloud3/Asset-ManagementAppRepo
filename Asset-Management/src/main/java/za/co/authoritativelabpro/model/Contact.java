@@ -66,4 +66,26 @@ public class Contact {
 		return "Contact [contactId=" + contactId + ", ownerId=" + ownerId
 				+ ", telephone=" + telephone + ", email=" + email + "]";
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + contactId;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Contact other = (Contact) obj;
+		if (contactId != other.contactId)
+			return false;
+		return true;
+	}
+	
+	
 }

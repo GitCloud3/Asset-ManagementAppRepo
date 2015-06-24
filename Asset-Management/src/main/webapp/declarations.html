@@ -33,7 +33,7 @@
 							<td>{{data.color}}</td>
 							<td>{{data.declarerId}}</td>
 							<td>{{data.declarationDate}}</td>
-							<td><a href="" ng-click="deleteRecord(data)">Delete</a></td>
+							<td><a href="" ng-click="deleteRecord(data)" confirm="Are you sure you want to delete record?">Delete</a></td>
 							<td><a ng-href="#/owners/{{data.ownerId}}">Owner</a></td>
 						</tr>
 					</table>

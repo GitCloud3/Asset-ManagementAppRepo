@@ -38,32 +38,34 @@
 	</head>
 	<body ng-controller="addItemCtrl">
 		<div class="container" >
-      <form novalidate ng-submit="sendPost()">
-				<label>Type:</label>
-				<input type="text" ng-model="type"/><br/>
+			<hr>
+	      <form novalidate name="ownerForm" ng-submit="submitItem()">
+					<label>Type:</label>
+					<input type="text" ng-model="item.type"/><br/>
 
-				<label>Name:</label>
-				<input type="text" ng-model="name"/><br/>
+					<label>Name:</label>
+					<input type="text" ng-model="item.name"/><br/>
 
-				<label>Serial number:</label>
-				<input type="text" ng-model="serial"/><br/>
+					<label>Serial number:</label>
+					<input type="text" ng-model="item.serialnumber"/><br/>
 
-				<label>Manufacture:</label>
-				<input type="text" ng-model="manufacture"/><br/>
+					<label>Manufacture:</label>
+					<input type="text" ng-model="item.manufacture"/><br/>
 
-				<label>Model number:</label>
-				<input type="text" ng-model="model"/><br/>
+					<label>Model number:</label>
+					<input type="text" ng-model="item.modelnumber"/><br/>
 
-				<label>Color:</label>
-				<input type="text" ng-model="color"/><br/>
+					<label>Color:</label>
+					<input type="text" ng-model="item.color"/><br/>
 
-				<label>Declarer ID#:</label>
-				<input type="text" ng-model="declarer"/><br/>
+					<label>Declarer ID#:</label>
+					<input type="text" ng-model="item.declarerId"/><br/>
 
-				<label>Owner ID#:</label>
-				<input type="text" ng-model="owner"/><br/>
-      </form>
-			<button type="submit">send</button>
+					<label>Owner ID#:</label>
+					<input type="text" ng-model="item.ownerId"/><br/>
+	      </form>
+			</hr>
+			<button type="submit" ng-click="step4()">save</button>
 
 		</div>
 	</body>

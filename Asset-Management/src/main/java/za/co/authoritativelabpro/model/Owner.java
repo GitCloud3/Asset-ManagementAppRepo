@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.NamedQuery;
 
+import org.hibernate.annotations.Cascade;
+
 @Entity
 @Table(name="Owner")
 @NamedQuery(name="Owner.findAll", query="SELECT o FROM Owner o")
@@ -46,12 +48,14 @@ public class Owner {
 	@Column(name="city")
 	private String city;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval=true)
 	@JoinColumn(name="ownerId", referencedColumnName="ownerId")
+	@Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	private Set<Contact> contacts = new HashSet<Contact>();
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval=true)
 	@JoinColumn(name="ownerId", referencedColumnName="ownerId")
+	@Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	private Set<Item> items = new HashSet<Item>();
 	
 	

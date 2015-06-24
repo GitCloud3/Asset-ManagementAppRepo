@@ -82,17 +82,10 @@ app.controller('listContactsCtrl',function($scope, $http, $routeParams)
 
 app.controller('addOwnerCtrl',function($scope, $http, $location) {
 
-  /*  $scope.sendPost = function() {
-			var data = $.param({
-				json: JSON.stringify({ownerId:$scope.title,title:$scope.title,name:$scope.name,surname:$scope.surname,gender:$scope.gender,
-					race:$scope.race,country:$scope.country,province:$scope.province,city:$cope.city
-					})
-        });
-        $http.post('http://localhost:8080/Asset-Management/declaration-ws/createOwner', data).success(function(data, status) {
-            $scope.hello = data;
-        })
-    }*/
 		$scope.step2 = function(path){
+			var data = $scope.owner;
+			$http.post('http://localhost:8080/Asset-Management/declaration-ws/createOwner', data);
+
 			$location.path(path);
 		}
 
@@ -100,13 +93,29 @@ app.controller('addOwnerCtrl',function($scope, $http, $location) {
 
 app.controller('addContactCtrl',function($scope, $http, $location) {
 
+		$scope.list = {
+			contacts: [{}]
+		};
+
+		$scope.newContact = function(){
+			$scope.list.contacts.push({});
+		}
 
 		$scope.step3 = function(path){
+
+			var data = $scope.list;
+
+			$http.post('http://localhost:8080/Asset-Management/declaration-ws/createContact', data);
+
 			$location.path(path);
 		}
 });
 
 app.controller('addItemCtrl',function($scope, $http, $location) {
 
-	alert('final stage');
+	$scope.step4 = function(){
+		var data = $scope.item;
+		$http.post('http://localhost:8080/Asset-Management/declaration-ws/createItem', data);
+	}
+
 });

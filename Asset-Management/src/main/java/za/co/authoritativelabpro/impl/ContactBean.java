@@ -32,11 +32,14 @@ public class ContactBean implements ContactManager {
 		return "Contact(s) removed";
 	}
 
-	public Contact addContact(Contact contact) {
+	public String addContact(List<Contact> contacts) {
 		// TODO Auto-generated method stub
 		log.info("em: addContact");
-		em.persist(contact);
-		return contact;
+		for(Contact contact : contacts){
+			em.persist(contact);
+		}
+		
+		return "contacts added";
 	}
 
 	@SuppressWarnings("unchecked")

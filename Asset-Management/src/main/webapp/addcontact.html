@@ -37,15 +37,18 @@
 
 	</head>
 	<body ng-controller="addContactCtrl">
-		<div class="container">
-      <form>
-				<label>Email:</label>
-				<input type="text" ng-model="email"/><br/>
+		<ng-form novalidate name="contactsForm" ng-submit="submitContact()">
+			<div ng-repeat="contact in list.contacts" ng-form="contactsForm" class="container">
+	      <hr>
+						<label>Email:</label>
+						<input id="listEmail" type="text" ng-model="contact.email"/><br/>
 
-				<label>Telephone:</label>
-				<input type="text" ng-model="telephone"/><br/>
-      </form>
-			<button type="submit" ng-click="step3('/additem')">send</button>
-		</div>
+						<label>Telephone:</label>
+						<input id="listTelephone" type="text" ng-model="contact.telephone"/><br/>
+				</hr>
+			</div>
+		</ng-form>
+		<button type="button" ng-click="newContact()">new</button>
+		<button type="submit" ng-click="step3('/additem')">save</button>
 	</body>
 	</html>
