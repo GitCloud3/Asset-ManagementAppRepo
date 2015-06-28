@@ -125,7 +125,7 @@ public class ContactRestService {
 		return builder.build();
 	}
 	@GET 
-	@Path("getContact/{id:\\d+}")
+	@Path("getContactById/{id:\\d+}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getContactByRecordId(@PathParam("id") int id, @QueryParam("clientId") String clientId, @QueryParam("signature") String signature) throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException {
 		

@@ -21,6 +21,9 @@ import org.jboss.logging.Logger;
 import za.co.authoritativelabpro.api.ContactManager;
 import za.co.authoritativelabpro.api.ItemManager;
 import za.co.authoritativelabpro.api.OwnerManager;
+import za.co.authoritativelabpro.converter.ContactParser;
+import za.co.authoritativelabpro.converter.ItemParser;
+import za.co.authoritativelabpro.model.Contact;
 import za.co.authoritativelabpro.model.Item;
 import za.co.authoritativelabpro.model.Owner;
 
@@ -46,11 +49,23 @@ public class ItemRestService {
 	@POST
 	@Path("createItem")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createItem(Item item){
-		String result = item.toString();
-		item.setDeclarationDate(new Date());
-		itemManager.addItem(item);
-		return Response.ok(result).build();
+	public Response createItem(String items){
+		
+		Response.ResponseBuilder builder = null;
+		
+		ItemParser cp = new ItemParser();
+		
+		List<Item> itemList = cp.passser(items);
+		
+		for(Item item : itemList){
+			item.setOwnerId("88");
+			item.setDeclarationDate(new Date());
+			itemManager.addItem(item);
+		}
+
+		builder = Response.status(Response.Status.ACCEPTED).entity("Cunsumer request to add new record was approved");;
+		
+		return builder.build();
 	}
 	
 	@PUT

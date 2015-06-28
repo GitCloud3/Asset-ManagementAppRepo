@@ -113,9 +113,18 @@ app.controller('addContactCtrl',function($scope, $http, $location) {
 
 app.controller('addItemCtrl',function($scope, $http, $location) {
 
-	$scope.step4 = function(){
-		var data = $scope.item;
-		$http.post('http://localhost:8080/Asset-Management/declaration-ws/createItem', data);
+	$scope.list = {
+		items: [{}]
+	};
+
+	$scope.newItem = function(){
+		$scope.list.items.push({});
 	}
 
+	$scope.step4 = function(){
+
+		var data = $scope.list;
+
+		$http.post('http://localhost:8080/Asset-Management/declaration-ws/createItem', data);
+	}
 });
