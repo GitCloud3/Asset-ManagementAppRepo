@@ -1,6 +1,3 @@
-/*
- * tsithosr
- */
 
 package za.co.authoritativelabpro.converter;
 
