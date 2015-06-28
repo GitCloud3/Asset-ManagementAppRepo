@@ -27,7 +27,6 @@ public class ItemParser {
 		Map<String, List<Item>> results1 = parser.parse(Map.class, json);
 		
 		for(Entry<String, List<Item>> entry : results1.entrySet()){
-			System.out.println("::: "+entry.getValue());
 			
 			TypeToken <List<Item>> tocken =  new TypeToken<List<Item>>(){};
 			Items = new Gson().fromJson(entry.getValue().toString(), tocken.getType());

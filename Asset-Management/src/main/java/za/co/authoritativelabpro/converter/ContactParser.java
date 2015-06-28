@@ -26,8 +26,7 @@ public class ContactParser {
 		Map<String, List<Contact>> results1 = parser.parse(Map.class, json);
 		
 		for(Entry<String, List<Contact>> entry : results1.entrySet()){
-			System.out.println("::: "+entry.getValue());
-			
+
 			TypeToken <List<Contact>> tocken =  new TypeToken<List<Contact>>(){};
 			contacts = new Gson().fromJson(entry.getValue().toString(), tocken.getType());
 		}
