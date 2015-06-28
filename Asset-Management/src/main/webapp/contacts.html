@@ -9,14 +9,16 @@
 		<div>
 			<div >
 					Search: <input type="text" value="" placeholder="Global search" ng-model="search"/>
-					<table border="0">
+					<table border="1">
 						<tr>
 							<td><strong>Telephone#</strong></td>
-							<td><strong>Email address<address class="">
+							<td><strong>Email-address</strong></td>
+							<td><strong>Update</strong></td>
 						</tr>
 						<tr ng-repeat="data in myData | filter : search">
 							<td>{{data.telephone}}</td>
 							<td>{{data.email}}</td>
+							<td><a href="" ng-click="editRecord(data)">Edit</a></td>
 						</tr>
 					</table>
 			</div>
