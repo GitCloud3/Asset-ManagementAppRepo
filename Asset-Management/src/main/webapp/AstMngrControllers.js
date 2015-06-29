@@ -133,18 +133,19 @@ app.controller('addItemCtrl',function($scope, $http, $location) {
 	}
 });
 
-app.directive('confirmationNeeded', function(){
+app.directive('confirmationNeeded', ['$location',function(){
 	return{
 		priority: 1,
 		terminal: true,
 		link: function(scope, element, attr){
-			var msg = attr.confirmationNeeded || "Are you sure you want to delete?";
+			var msg = attr.confirmationNeeded || "Please note that you are attempting to delete the record!";
 			var clickAction = attr.ngClick;
 			element.bind('click', function(){
 				if(window.confirm(msg)){
 					scope.$eval(clickAction)
+					location.path(path);
 				}
 			});
 		}
 	};
-});
+}]);
