@@ -48,8 +48,9 @@ public class ItemBean implements ItemManager {
 
 	public List<Item> getItems() {
 		// TODO Auto-generated method stub
-		List<Item> item = em.createQuery("SELECT o FROM Item o", Item.class).getResultList();
-		return item;
+		List<Item> items = em.createQuery("SELECT o FROM Item o", Item.class).getResultList();
+		
+		return items;
 	}
 
 	public String updateItem(Item item) {
