@@ -122,13 +122,11 @@ public class OwnerRestService {
 		return builder.build();
 	}
 	
-	//@DELETE
+	@DELETE
 	@Path("removeOwner/{id:\\d+}")
-	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Consumes("*/*")
 	public Response removeOwner(@PathParam("id") String id){
-		
-		System.out.println("++++++++++++++++++++++++++++++++++++++");
-		System.out.println("id returned: "+id);
+
 		log.info("remove");
 		System.out.println(id);
 		ownerManager.removeOwner(id);
