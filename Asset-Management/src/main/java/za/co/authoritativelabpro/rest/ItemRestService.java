@@ -50,7 +50,7 @@ public class ItemRestService {
 	@Path("createItem")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createItem(String items){
-		
+		System.out.println("------------- "+items);
 		Response.ResponseBuilder builder = null;
 		
 		ItemParser cp = new ItemParser();
@@ -58,7 +58,7 @@ public class ItemRestService {
 		List<Item> itemList = cp.passser(items);
 		
 		for(Item item : itemList){
-			item.setOwnerId("88");
+			item.setOwnerId("7854265874895");
 			item.setDeclarationDate(new Date());
 			itemManager.addItem(item);
 		}
