@@ -150,9 +150,9 @@ public class ContactRestService {
 		return builder.build();
 	}
 	
-	//@DELETE
+	@DELETE
 	@Path("removeContact/{id:\\d+}")
-	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Consumes("*/*")
 	public Response removeContact(@PathParam("id") String id, @QueryParam("clientId") String clientId, @QueryParam("signature") String signature) throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException {
 		Response.ResponseBuilder builder = null;
 		
