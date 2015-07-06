@@ -87,9 +87,9 @@ public class ItemRestService {
 		return itemManager.getItem(id);
 	}
 	
-	//@DELETE
+	@DELETE
 	@Path("removeItem/{id:\\d+}")
-	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Consumes("*/*")
 	public void removeItem(@PathParam("id") String id){
 		log.info("removeItem");
 		System.out.println(id);
