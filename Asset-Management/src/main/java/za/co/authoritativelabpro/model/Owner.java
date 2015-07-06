@@ -50,12 +50,10 @@ public class Owner {
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval=true)
 	@JoinColumn(name="ownerId", referencedColumnName="ownerId")
-	@Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	private Set<Contact> contacts = new HashSet<Contact>();
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval=true)
 	@JoinColumn(name="ownerId", referencedColumnName="ownerId")
-	@Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	private Set<Item> items = new HashSet<Item>();
 	
 	
