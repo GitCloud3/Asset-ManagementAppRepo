@@ -20,6 +20,15 @@ app.config(function($routeProvider){
 			templateUrl:'addcontact.html',
 			controller:'addContactCtrl'
 		})
+		.when('/updateDeclaration', {
+			templateUrl:'updateDeclarations.html'
+		})
+		.when('/updateContact', {
+			templateUrl:'updateContact.html'
+		})
+		.when('/updateOwner', {
+			templateUrl:'updateOwner.html'
+		})
 		.when('/additem', {
 			templateUrl:'additem.html',
 			controller:'addItemCtrl'
@@ -58,7 +67,11 @@ app.controller('listCtrl',function($scope, $http)
 	}
 
 	$scope.editRecord = function(row){
-		alert("About to update");
+		//alert("About to update: "+row.name);
+		$http.get('http://localhost:8080/Asset-Management/declaration-ws/getItem/'+row.ownerId).success(function(response)
+		{
+			$scope.myData = response;
+		});
 	}
 
 });
