@@ -92,7 +92,7 @@ public class ContactRestService {
 		List<Contact> contactList = cp.passser(contacts);
 		
 		for(Contact contact : contactList){
-			contact.setOwnerId("88");
+			contact.setOwnerId("7854265874895");
 			contactManager.addContact(contact);
 		}
 
