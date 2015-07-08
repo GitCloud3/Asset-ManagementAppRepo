@@ -17,7 +17,7 @@ public class ItemParser {
 	
 	public List<Item> passser(final String json){
 		
-		List<Item> Items = new ArrayList<Item>();
+		List<Item> items = new ArrayList<Item>();
 		
 		JSONParser parser = new JSONParser();
 		
@@ -29,8 +29,8 @@ public class ItemParser {
 		for(Entry<String, List<Item>> entry : results1.entrySet()){
 			
 			TypeToken <List<Item>> tocken =  new TypeToken<List<Item>>(){};
-			Items = new Gson().fromJson(entry.getValue().toString(), tocken.getType());
+			items = new Gson().fromJson(entry.getValue().toString(), tocken.getType());
 		}
-		return Items;
+		return items;
 	}
 }
