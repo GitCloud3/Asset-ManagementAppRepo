@@ -10,6 +10,8 @@ import javax.persistence.PersistenceContext;
 import org.jboss.logging.Logger;
 
 import za.co.authoritativelabpro.api.OwnerManager;
+import za.co.authoritativelabpro.model.Contact;
+import za.co.authoritativelabpro.model.Item;
 import za.co.authoritativelabpro.model.Owner;
 
 @Stateless
@@ -23,6 +25,16 @@ public class OwnerBean implements OwnerManager {
 		// TODO Auto-generated method stub
 		log.info("em: removeOwner");
 		Owner owner = em.find(Owner.class, id);
+
+		for(Contact contact: owner.getContacts()){
+			em.remove(contact);
+		}
+		for(Item item: owner.getItems()){
+			em.remove(item);
+		}
+		owner.setContacts(null);
+		owner.setItems(null);
+		
 		em.remove(owner);
 
 		return "Owner removed";
