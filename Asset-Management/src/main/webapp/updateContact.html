@@ -41,13 +41,14 @@
 			<div>
 	      <hr>
 						<label>Email:</label>
-						<input id="listEmail" type="text" ng-model="contact.email"/><br/>
+						<input id="listEmail" name="email" type="email" ng-model="contact.email"/>
+						<span ng-show="contactsForm.email.$dirty && contactsForm.email.$error.email">invalid email</span><br />
 
 						<label>Telephone:</label>
-						<input id="listTelephone" type="text" ng-model="contact.telephone"/><br/>
+						<input id="listTelephone" type="tel" ng-model="contact.telephone"/><br/>
 				</hr>
 			</div>
 		</ng-form>
-		<button type="submit" ng-click="">Update</button>
+		<button type="submit" ng-disabled="contactsForm.$invalid" ng-click="">Update</button>
 	</body>
 	</html>

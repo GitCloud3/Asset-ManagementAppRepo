@@ -41,33 +41,44 @@ textarea {
 		<hr>
 			<form novalidate name="ownerForm" ng-submit="submitOwner()">
 				<label>Title:</label>
-				<input type="text" ng-model="owner.title" /><br />
+				<input type="text" name="title" ng-model="owner.title" ng-minlength="1" required />
+				<span ng-show="ownerForm.title.$dirty && ownerForm.title.$error.required">title is a required field</span>
+				<span ng-show="ownerForm.title.$dirty && ownerForm.title.$error.minlength">invalid title</span><br />
 
 				<label>Fullname(s):</label>
-				<input type="text" ng-model="owner.name" /><br />
+				<input type="text" name="name" ng-model="owner.name" required />
+				<span ng-show="ownerForm.name.$dirty && ownerForm.name.$error.required">fullname is a required field</span><br />
 
 				<label>Surname:</label>
-				<input type="text" ng-model="owner.surname" /><br />
+				<input type="text" name="surname" ng-model="owner.surname" required />
+				<span ng-show="ownerForm.surname.$dirty && ownerForm.surname.$error.required">surname is a required field</span><br />
 
 				<label>Gender:</label>
-				<input type="text" ng-model="owner.gender" /><br />
+				<input type="text" name="gender" ng-model="owner.gender" required />
+				<span ng-show="ownerForm.gender.$dirty && ownerForm.gender.$error.required">gender is a required field</span><br />
 
 				<label>ID number:</label>
-				<input type="text" ng-model="owner.ownerId" /><br />
+				<input type="text" name="ownerId" ng-model="owner.ownerId" required />
+				<span ng-show="ownerForm.ownerId.$dirty && ownerForm.ownerId.$error.required">ID number is a required field</span><br />
 
 				<label>Race:</label>
-				<input type="text" ng-model="owner.race" /><br />
+				<input type="text" name="race" ng-model="owner.race" required />
+				<span ng-show="ownerForm.race.$dirty && ownerForm.race.$error.required">race is a required field</span><br />
 
 				<label>Country:</label>
-				<input	type="text" ng-model="owner.country" /><br />
+				<input	type="text" name="country" ng-model="owner.country" required />
+				<span ng-show="ownerForm.country.$dirty && ownerForm.country.$error.required">country is a required field</span><br />
 
 				<label>Province:</label>
-				<input	type="text" ng-model="owner.province" /><br />
+				<input	type="text" name="province" ng-model="owner.province" required />
+				<span ng-show="ownerForm.province.$dirty && ownerForm.province.$error.required">province is s required field</span><br />
 
 				<label>City:</label>
-				<input type="text" ng-model="owner.city" /><br />
+				<input type="text" name="city" ng-model="owner.city" required />
+				<span ng-show="ownerForm.city.$dirty && ownerForm.city.$error.required">city is a required field</span><br />
+
 			</form>
-			<button type="submit" ng-click="step2('/addcontact')">save</button>
+			<button type="submit" ng-disabled="ownerForm.$invalid" ng-click="step2('/addcontact')">save</button>
 		</hr>
 	</div>
 </body>
