@@ -34,7 +34,7 @@
 							<td>{{data.color}}</td>
 							<td>{{data.declarerId}}</td>
 							<td>{{data.declarationDate | date:'yyyy-MM-dd'}}</td>
-							<td><a href="#/updateDeclaration" ng-click="editRecord(data)">Edit</a></td>
+							<td><a href="#/updateDeclaration/{{data.serialnumber}}" ng-click="editRecord(data)">Edit</a></td>
 							<td><a ng-href="#/list" ng-click="deleteRecord(data)" confirmation-needed>Delete</a></td>
 							<td><a ng-href="#/owners/{{data.ownerId}}">Owner</a></td>
 						</tr>
