@@ -68,5 +68,11 @@ public class OwnerBean implements OwnerManager {
 		em.merge(owner);
 		return "Owner updated!";
 	}
+	public Owner getOwnerRecord(String id){
+		// TODO Auto-generated method stub
+		log.info("em: getOwnerRecord");
+		Owner owner = em.createQuery("SELECT o FROM Owner o", Owner.class).getResultList().get(0);
+		return owner;
+	}
 
 }
