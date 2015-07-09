@@ -13,6 +13,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -85,6 +86,14 @@ public class ItemRestService {
 	public List<Item> getItem(@PathParam("id") String id){
 		
 		return itemManager.getItem(id);
+	}
+	
+	@GET 
+	@Path("getAsset")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Item getItemBySerial(@QueryParam("serial") String serial){
+		System.out.println("------------------------------------------------------------------- "+serial);
+		return itemManager.getAsset(serial);
 	}
 	
 	@DELETE
