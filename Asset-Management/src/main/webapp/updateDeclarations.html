@@ -36,40 +36,39 @@
 		<meta charset="UTF-8">
 
 	</head>
-	<body ng-controller="listCtrl">
-		<form novalidate name="updateItemForm" ng-submit="submitUpdatedItem()">
+	<body ng-controller="updateDeclarationCtrl">
+		<form name="itemForm" ng-submit="submitUpdatedItem()">
 			<div>
 				<hr>
 				<label>Type:</label>
-				<input type="text" name="type" ng-model="item.type" required />
+				<input type="text" name="type" ng-model="myData.type" required />
 				<span ng-show="itemForm.type.$dirty && itemForm.type.$error.required">type is a required field</span><br />
 
 				<label>Name:</label>
-				<input type="text" name="name" ng-model="item.name" required />
+				<input type="text" name="name" ng-model="myData.name" required />
 				<span ng-show="itemForm.name.$dirty && itemForm.name.$error.required">item name is a required field</span><br />
 
 				<label>Serial number:</label>
-				<input type="text" name="serialnumber" ng-model="item.serialnumber" required />
+				<input type="text" name="serialnumber" ng-model="myData.serialnumber" required />
 				<span ng-show="itemForm.serialnumber.$dirty && itemForm.serialnumber.$error.required">serial number is a required field</span><br />
 
 				<label>Manufacture:</label>
-				<input type="text" name="manufacture" ng-model="item.manufacture" required />
+				<input type="text" name="manufacture" ng-model="myData.manufacture" required />
 				<span ng-show="itemForm.manufacture.$dirty && itemForm.manufacture.$error.required">manufacture is a required field</span><br />
 
 				<label>Model number:</label>
-				<input type="text" name="model" ng-model="item.modelnumber" required /><br/>
+				<input type="text" name="model" ng-model="myData.modelnumber" required />
 				<span ng-show="itemForm.model.$dirty && itemForm.model.$error.required">model is a required field</span><br />
 
 				<label>Color:</label>
-				<input type="text" name="color" ng-model="item.color" required /><br/>
+				<input type="text" name="color" ng-model="myData.color" required />
 				<span ng-show="itemForm.color.$dirty && itemForm.color.$error.required">color is a required field</span><br />
 
 				<label>Declarer ID#:</label>
-				<input type="text" name="declarerId" ng-model="item.declarerId" required /><br/>
-				<span ng-show="itemForm.declarerId.$dirty && itemForm.declarerId.$error.required">declarer ID is a required field</span><br />
-				</hr>
+				<input type="text" name="declarerId" ng-model="myData.declarerId" required />
+				<span ng-show="itemForm.declarerId.$dirty && itemForm.declarerId.$error.required">declarer ID is a required field</span><br />				</hr>
 			</div>
 		</form>
-	<button type="submit" ng-click="">Update</button>
+		<button type="submit" ng-disabled="itemForm.$invalid" ng-click="updateItem('/list')">Update</button>
 	</body>
 	</html>
