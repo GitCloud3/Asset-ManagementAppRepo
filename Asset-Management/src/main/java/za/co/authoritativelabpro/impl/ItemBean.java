@@ -44,7 +44,12 @@ public class ItemBean implements ItemManager {
 		query.setParameter(1, ownerId);
 		return new ArrayList<Item>(query.getResultList());
 	}
-
+	
+	public Item getAsset(String serial){
+		log.info("em: getAsset");
+		
+		return em.find(Item.class, serial);
+	}
 
 	public List<Item> getItems() {
 		// TODO Auto-generated method stub
