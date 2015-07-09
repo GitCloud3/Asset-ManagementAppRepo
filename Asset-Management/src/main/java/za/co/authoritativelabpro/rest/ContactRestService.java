@@ -127,27 +127,9 @@ public class ContactRestService {
 	@GET 
 	@Path("getContactById/{id:\\d+}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getContactByRecordId(@PathParam("id") int id, @QueryParam("clientId") String clientId, @QueryParam("signature") String signature) throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException {
+	public Contact getContactByRecordId(@PathParam("id") int id) {
 		
-		Response.ResponseBuilder builder = null;
-		
-		System.out.println("Client generated key:"+signature);
-		
-		String resourceUrl = uriInfo.getAbsolutePath().toString();
-		
-		String sign = signer.calculate(resourceUrl, clientId,HMAC_SHARED_KEY);
-		
-		System.out.println("Server generated key:"+sign);
-		
-		if(sign.equals(signature)){
-			log.info("getOwners");
-			builder = Response.ok(contactManager.getContactByRecordID(id));
-		}
-		else{	
-			builder = Response.status(Response.Status.UNAUTHORIZED).entity("Cunsumer not authorized to get read contacts by Id");
-		}
-		
-		return builder.build();
+		return contactManager.getContactByRecordID(id);
 	}
 	
 	@DELETE
