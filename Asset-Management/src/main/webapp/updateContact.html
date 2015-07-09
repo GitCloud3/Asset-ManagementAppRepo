@@ -36,19 +36,19 @@
 		<meta charset="UTF-8">
 
 	</head>
-	<body ng-controller="addContactCtrl">
+	<body ng-controller="updateContactCtrl">
 		<ng-form novalidate name="contactsForm" ng-submit="submitContact()">
 			<div>
 	      <hr>
 						<label>Email:</label>
-						<input id="listEmail" name="email" type="email" ng-model="contact.email"/>
+						<input id="listEmail" name="email" type="email" ng-model="myData.email"/>
 						<span ng-show="contactsForm.email.$dirty && contactsForm.email.$error.email">invalid email</span><br />
 
 						<label>Telephone:</label>
-						<input id="listTelephone" type="tel" ng-model="contact.telephone"/><br/>
+						<input id="listTelephone" type="tel" ng-model="myData.telephone"/><br/>
 				</hr>
 			</div>
 		</ng-form>
-		<button type="submit" ng-disabled="contactsForm.$invalid" ng-click="">Update</button>
+		<button type="submit" ng-disabled="contactsForm.$invalid" ng-click="updateContact('/list')">Update</button>
 	</body>
 	</html>
