@@ -88,25 +88,14 @@ public class OwnerRestService {
 	@PUT
 	@Path("updateOwner")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response update(Owner owner, @QueryParam("clientId") String clientId, @QueryParam("signature") String signature) throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException {
-		
+	public Response update(Owner owner) {
+
 		Response.ResponseBuilder builder = null;
-		System.out.println("Client generated key:"+signature);
 		
-		String resourceUrl = uriInfo.getAbsolutePath().toString();
+		log.info("getOwner");
+		builder = Response.ok(ownerManager.updateOwner(owner));
 		
-		String sign = signer.calculate(resourceUrl, clientId,HMAC_SHARED_KEY);
-		
-		if(sign.equals(signature)){
-			ownerManager.updateOwner(owner);
-			
-			builder = Response.status(Response.Status.ACCEPTED).entity("Cunsumer update request was accepted");;
-		}
-		else{
-			builder = Response.status(Response.Status.UNAUTHORIZED).entity("Cunsumer not authorized to update records");		
-		}
-		return builder.build();
-			
+		return builder.build();		
 	}
 	
 	@GET 
@@ -118,6 +107,19 @@ public class OwnerRestService {
 		
 		log.info("getOwner");
 		builder = Response.ok(ownerManager.getOwner(id));
+		
+		return builder.build();
+	}
+	
+	@GET 
+	@Path("getOwnerRecord/{id:\\d+}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getOwnerRecor(@PathParam("id") String id){
+		
+		Response.ResponseBuilder builder = null;
+		
+		log.info("getOwner");
+		builder = Response.ok(ownerManager.getOwnerRecord(id));
 		
 		return builder.build();
 	}
