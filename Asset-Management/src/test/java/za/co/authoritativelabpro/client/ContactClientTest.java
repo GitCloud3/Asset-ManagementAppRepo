@@ -51,9 +51,9 @@ public class ContactClientTest {
 	
 	
 	@Test
-	public void getContacts() throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException {
+	public void getContacts() {
 		ResteasyClient client = new ResteasyClientBuilder().build();
-		ResteasyWebTarget target = client.target(us.makeRESRCall(ROOT_URL + "getContacts", CLIENT_ID, HMAC_SHARED_KEY));
+		ResteasyWebTarget target = client.target(ROOT_URL + "getContacts");
 
 		Response response = target.request().get();
 
