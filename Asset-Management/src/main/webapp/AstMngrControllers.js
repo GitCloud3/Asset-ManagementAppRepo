@@ -24,11 +24,13 @@ app.config(function($routeProvider){
 			templateUrl:'updateDeclarations.html',
 			controller:'updateDeclarationCtrl'
 		})
-		.when('/updateContact', {
-			templateUrl:'updateContact.html'
+		.when('/updateContact/:contactId', {
+			templateUrl:'updateContact.html',
+			controller:'updateContactCtrl'
 		})
-		.when('/updateOwner', {
-			templateUrl:'updateOwner.html'
+		.when('/updateOwner/:ownerId', {
+			templateUrl:'updateOwner.html',
+			controller:'updateOwnerCtrl'
 		})
 		.when('/additem', {
 			templateUrl:'additem.html',
@@ -101,6 +103,41 @@ app.controller('updateDeclarationCtrl',function($scope, $http, $routeParams, $lo
 	$scope.updateItem = function(path){
 		var data = $scope.myData;
 		$http.put('http://localhost:8080/Asset-Management/declaration-ws/updateItem', data);
+
+		$location.path(path);
+	}
+
+});
+
+app.controller('updateOwnerCtrl',function($scope, $http, $routeParams, $location)
+{
+	var ownerId = $routeParams.ownerId;
+	$http.get('http://localhost:8080/Asset-Management/declaration-ws/getOwnerRecord/'+ownerId).success(function(response)
+	{
+		$scope.myData = response;
+	});
+
+	$scope.updateOwner = function(path){
+
+		var data = $scope.myData;
+		$http.put('http://localhost:8080/Asset-Management/declaration-ws/updateOwner', data);
+
+		$location.path(path);
+
+	}
+});
+
+app.controller('updateContactCtrl',function($scope, $http, $routeParams, $location)
+{
+	var contactId = $routeParams.contactId;
+	$http.get('http://localhost:8080/Asset-Management/declaration-ws/getContactById/'+contactId).success(function(response)
+	{
+		$scope.myData = response;
+	});
+
+	$scope.updateContact = function(path){
+		var data = $scope.myData;
+		$http.put('http://localhost:8080/Asset-Management/declaration-ws/updateContact', data);
 
 		$location.path(path);
 	}
