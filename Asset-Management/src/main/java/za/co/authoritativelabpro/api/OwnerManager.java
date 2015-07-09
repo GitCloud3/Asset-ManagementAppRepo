@@ -19,6 +19,8 @@ public interface OwnerManager {
 	
 	public List<Owner> getOwner(String id);
 	
+	public Owner getOwnerRecord(String id);
+	
 	public List<Owner> getOwners();
 	
 	public String updateOwner(Owner owner);
