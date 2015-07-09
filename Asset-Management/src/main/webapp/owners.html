@@ -33,7 +33,7 @@
 							<td>{{data.country}}</td>
 							<td>{{data.province}}</td>
 							<td>{{data.city}}</td>
-							<td><a href="#/updateOwner" ng-click="editRecord(data)">Edit</a></td>
+							<td><a href="#/updateOwner/{{data.ownerId}}" ng-click="editRecord(data)">Edit</a></td>
 							<td><a ng-href="#/contacts/{{data.ownerId}}" data-ng-click="contacts(data)">Contacts</a></td>
 						</tr>
 					</table>
