@@ -36,32 +36,32 @@ textarea {
 <meta charset="UTF-8">
 
 </head>
-<body ng-controller="addOwnerCtrl">
+<body ng-controller="updateOwnerCtrl">
 	<div>
 		<hr>
 			<form name="ownerForm" ng-submit="submitOwner()">
 				<label>Title:</label>
-				<input type="text" name="title" ng-model="owner.title" ng-minlength="1" required />
+				<input type="text" name="title" ng-model="myData.title" ng-minlength="1" required />
 				<span ng-show="ownerForm.title.$dirty && ownerForm.title.$error.required">title is a required field</span>
 				<span ng-show="ownerForm.title.$dirty && ownerForm.title.$error.minlength">invalid title</span><br />
 
 				<label>Surname:</label>
-				<input type="text" name="surname" ng-model="owner.surname" required />
+				<input type="text" name="surname" ng-model="myData.surname" required />
 				<span ng-show="ownerForm.surname.$dirty && ownerForm.surname.$error.required">surname is a required field</span><br />
 
 				<label>Country:</label>
-				<input	type="text" name="country" ng-model="owner.country" required />
+				<input	type="text" name="country" ng-model="myData.country" required />
 				<span ng-show="ownerForm.country.$dirty && ownerForm.country.$error.required">country is a required field</span><br />
 
 				<label>Province:</label>
-				<input	type="text" name="province" ng-model="owner.province" required />
+				<input	type="text" name="province" ng-model="myData.province" required />
 				<span ng-show="ownerForm.province.$dirty && ownerForm.province.$error.required">province is s required field</span><br />
 
 				<label>City:</label>
-				<input type="text" name="city" ng-model="owner.city" required />
+				<input type="text" name="city" ng-model="myData.city" required />
 				<span ng-show="ownerForm.city.$dirty && ownerForm.city.$error.required">city is a required field</span><br />
 			</form>
-			<button type="submit" ng-disabled="ownerForm.$invalid" ng-click="">Update</button>
+			<button type="submit" ng-disabled="ownerForm.$invalid" ng-click="updateOwner('/list')">Update</button>
 		</hr>
 	</div>
 </body>
