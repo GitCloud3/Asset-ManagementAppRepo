@@ -19,6 +19,8 @@ public interface ItemManager {
 	
 	public List<Item> getItem(String id);
 	
+	public Item getAsset(String serial);
+	
 	public List<Item> getItems();
 	
 	public String updateItem(Item item);
