@@ -39,7 +39,7 @@ textarea {
 <body ng-controller="addOwnerCtrl">
 	<div>
 		<hr>
-			<form novalidate name="ownerForm" ng-submit="submitOwner()">
+			<form name="ownerForm" ng-submit="submitOwner()">
 				<label>Title:</label>
 				<input type="text" name="title" ng-model="owner.title" ng-minlength="1" required />
 				<span ng-show="ownerForm.title.$dirty && ownerForm.title.$error.required">title is a required field</span>
@@ -61,7 +61,7 @@ textarea {
 				<input type="text" name="city" ng-model="owner.city" required />
 				<span ng-show="ownerForm.city.$dirty && ownerForm.city.$error.required">city is a required field</span><br />
 			</form>
-			<button type="submit" ng-click="">Update</button>
+			<button type="submit" ng-disabled="ownerForm.$invalid" ng-click="">Update</button>
 		</hr>
 	</div>
 </body>
