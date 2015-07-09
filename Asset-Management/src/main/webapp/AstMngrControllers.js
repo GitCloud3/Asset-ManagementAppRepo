@@ -20,8 +20,9 @@ app.config(function($routeProvider){
 			templateUrl:'addcontact.html',
 			controller:'addContactCtrl'
 		})
-		.when('/updateDeclaration', {
-			templateUrl:'updateDeclarations.html'
+		.when('/updateDeclaration/:serialnumber', {
+			templateUrl:'updateDeclarations.html',
+			controller:'updateDeclarationCtrl'
 		})
 		.when('/updateContact', {
 			templateUrl:'updateContact.html'
@@ -66,14 +67,6 @@ app.controller('listCtrl',function($scope, $http)
 		$scope.myData.splice($scope.myData.indexOf(row),1);
 	}
 
-	$scope.editRecord = function(row){
-		//alert("About to update: "+row.name);
-		$http.get('http://localhost:8080/Asset-Management/declaration-ws/getItem/'+row.ownerId).success(function(response)
-		{
-			$scope.myData = response;
-		});
-	}
-
 });
 
 app.controller('listOwnersCtrl',function($scope, $http, $routeParams)
@@ -94,6 +87,23 @@ app.controller('listContactsCtrl',function($scope, $http, $routeParams)
 	{
 		$scope.myData = response;
 	});
+
+});
+
+app.controller('updateDeclarationCtrl',function($scope, $http, $routeParams, $location)
+{
+	var serialnumber = $routeParams.serialnumber;
+	$http.get('http://localhost:8080/Asset-Management/declaration-ws/getAsset?serial='+serialnumber).success(function(response)
+	{
+		$scope.myData = response;
+	});
+
+	$scope.updateItem = function(path){
+		var data = $scope.myData;
+		$http.put('http://localhost:8080/Asset-Management/declaration-ws/updateItem', data);
+
+		$location.path(path);
+	}
 
 });
 
