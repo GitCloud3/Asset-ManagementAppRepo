@@ -61,7 +61,7 @@ textarea {
 				<input type="text" name="city" ng-model="myData.city" required />
 				<span ng-show="ownerForm.city.$dirty && ownerForm.city.$error.required">city is a required field</span><br />
 			</form>
-			<button type="submit" ng-disabled="ownerForm.$invalid" ng-click="updateOwner('/list')">Update</button>
+			<button type="submit" ng-disabled="ownerForm.$invalid" ng-click="updateOwner('/owners/'+myData.ownerId)">Update</button>
 		</hr>
 	</div>
 </body>
