@@ -75,7 +75,7 @@ app.controller('listOwnersCtrl',function($scope, $http, $routeParams)
 {
 	var ownerId = $routeParams.ownerId;
 
-	$http.get('http://localhost:8080/Asset-Management/declaration-ws/getOwner/'+ownerId+'?clientId=unisa&signature=dQ0sIQxLHNjcMQo1-YTDSi9J8GU%3D').success(function(response)
+	$http.get('http://localhost:8080/Asset-Management/declaration-ws/getOwner/'+ownerId).success(function(response)
 	{
 		$scope.myData = response;
 	});
@@ -85,7 +85,7 @@ app.controller('listOwnersCtrl',function($scope, $http, $routeParams)
 app.controller('listContactsCtrl',function($scope, $http, $routeParams)
 {
 	var ownerId = $routeParams.ownerId;
-	$http.get('http://localhost:8080/Asset-Management/declaration-ws/getContact/'+ownerId+'?clientId=unisa&signature=jnnx5vPpB0jhFH6qJKvpAM_c0w4%3D').success(function(response)
+	$http.get('http://localhost:8080/Asset-Management/declaration-ws/getContact/'+ownerId).success(function(response)
 	{
 		$scope.myData = response;
 	});
