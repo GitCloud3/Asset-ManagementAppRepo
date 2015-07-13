@@ -89,11 +89,16 @@ public class ItemRestService {
 	}
 	
 	@GET 
-	@Path("getAsset")
+	@Path("getAsset/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Item getItemBySerial(@QueryParam("serial") String serial){
-		System.out.println("------------------------------------------------------------------- "+serial);
-		return itemManager.getAsset(serial);
+	public Response getItemBySerial(@PathParam("id") String id){
+		
+		Response.ResponseBuilder builder = null;
+		
+		log.info("getOwner");
+		builder = Response.ok(itemManager.getAsset(id));
+		
+		return builder.build();	
 	}
 	
 	@DELETE
