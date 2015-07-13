@@ -50,7 +50,8 @@
 
 					<label>Serial number:</label>
 					<input type="text" name="serialnumber" ng-model="item.serialnumber" required />
-					<span ng-show="itemForm.serialnumber.$dirty && itemForm.serialnumber.$error.required">serial number is a required field</span><br />
+					<span ng-show="itemForm.serialnumber.$dirty && itemForm.serialnumber.$error.required">serial number is a required field</span>
+					<span ng-show="duplicateValue">asset with the same serial number exists</span><br />
 
 					<label>Manufacture:</label>
 					<input type="text" name="manufacture" ng-model="item.manufacture" required />
