@@ -71,7 +71,7 @@ public class OwnerBean implements OwnerManager {
 	public Owner getOwnerRecord(String id){
 		// TODO Auto-generated method stub
 		log.info("em: getOwnerRecord");
-		Owner owner = em.createQuery("SELECT o FROM Owner o", Owner.class).getResultList().get(0);
+		Owner owner = em.find(Owner.class, id);
 		return owner;
 	}
 
