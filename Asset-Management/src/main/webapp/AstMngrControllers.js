@@ -146,8 +146,23 @@ app.controller('updateContactCtrl',function($scope, $http, $routeParams, $locati
 
 app.controller('addOwnerCtrl',function($scope, $http, $location) {
 
+		$scope.$watch('owner.ownerId', function(){
+			var iden = $scope.owner;
+			var myjson
+
+			$http.get('http://localhost:8080/Asset-Management/declaration-ws/getOwnerRecord/'+iden.ownerId).success(function(response)
+			{
+				myjson = response.ownerId;
+
+				$scope.duplicateValue = angular.equals(iden.ownerId, myjson);
+
+			})
+
+		});
+
 		$scope.step2 = function(path){
 			var data = $scope.owner;
+
 			$http.post('http://localhost:8080/Asset-Management/declaration-ws/createOwner', data);
 
 			$location.path(path);
