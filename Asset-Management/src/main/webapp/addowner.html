@@ -59,7 +59,9 @@ textarea {
 
 				<label>ID number:</label>
 				<input type="text" name="ownerId" ng-model="owner.ownerId" required />
-				<span ng-show="ownerForm.ownerId.$dirty && ownerForm.ownerId.$error.required">ID number is a required field</span><br />
+				<span ng-show="ownerForm.ownerId.$dirty && ownerForm.ownerId.$error.required">ID number is a required field</span>
+				<span ng-show="duplicateValue">asset owner with the same ID number exists</span><br />
+
 
 				<label>Race:</label>
 				<input type="text" name="race" ng-model="owner.race" required />
