@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="AssetManagement">
+	<head lang="en">
+
+		<meta charset="UTF-8">
+
+	</head>
+	<body ng-controller="">
+		<div>
+			<div >
+					<!--Search: <input type="text" value="" placeholder="Global search" ng-model="search"/>-->
+					<table border="1">
+						<tr>
+							<td><strong>Serial#</strong></td>
+							<td><strong>Owner-ID#</strong></td>
+							<td><strong>Type</strong></td>
+							<td><strong>Name</strong></td>
+							<td><strong>Model#</strong></td>
+							<td><strong>Manufacture</strong></td>
+							<td><strong>Color</strong></td>
+							<td><strong>Declarer-ID#</strong></td>
+							<td><strong>Declaration-Date</strong></td>
+						</tr>
+						<tr>
+							<td>{{myData.serialnumber}}</td>
+							<td>{{myData.ownerId}}</td>
+							<td>{{myData.type}}</td>
+							<td>{{myData.name}}</td>
+							<td>{{myData.modelnumber}}</td>
+							<td>{{myData.manufacture}}</td>
+							<td>{{myData.color}}</td>
+							<td>{{myData.declarerId}}</td>
+							<td>{{myData.declarationDate | date:'yyyy-MM-dd'}}</td>
+						</tr>
+					</table>
+			</div>
+		</div>
+	</body>
+</html>
