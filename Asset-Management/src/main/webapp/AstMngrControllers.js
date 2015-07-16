@@ -47,6 +47,14 @@ app.config(function($routeProvider){
 		.when('/addContact', {
 			templateUrl:'addcontact.html'
 		})
+		.when('/retrieve', {
+			templateUrl:'search.html',
+			controller:'searchItemCtrl'
+		})
+		.when('/declarationRecord', {
+			templateUrl:'record.html',
+			controller:'loadSearchItemCtrl'
+		})
 		.otherwise({
 			redirectTo: '/'
 		});
@@ -95,7 +103,7 @@ app.controller('listContactsCtrl',function($scope, $http, $routeParams)
 app.controller('updateDeclarationCtrl',function($scope, $http, $routeParams, $location)
 {
 	var serialnumber = $routeParams.serialnumber;
-	$http.get('http://localhost:8080/Asset-Management/declaration-ws/getAsset?serial='+serialnumber).success(function(response)
+	$http.get('http://localhost:8080/Asset-Management/declaration-ws/getAsset/'+serialnumber).success(function(response)
 	{
 		$scope.myData = response;
 	});
@@ -205,6 +213,51 @@ app.controller('addItemCtrl',function($scope, $http, $location) {
 		var data = $scope.list;
 
 		$http.post('http://localhost:8080/Asset-Management/declaration-ws/createItem', data);
+	}
+});
+
+app.controller('searchItemCtrl',function($scope, $http, $routeParams, $location)
+{
+
+	$scope.$watch('item.serialnumber', function(){
+		var iden = $scope.item;
+		var myjson;
+
+		$http.get('http://localhost:8080/Asset-Management/declaration-ws/getAsset/'+iden.serialnumber).success(function(response)
+		{
+			myjson = response.serialnumber;
+
+			$scope.availableRecord = angular.equals(iden.serialnumber, myjson);
+
+		})
+
+	});
+
+	/*$scope.retrieveData = function(path){
+
+		var serial = $scope.item;
+		$http.get('http://localhost:8080/Asset-Management/declaration-ws/getAsset/'+serial.serialnumber).success(function(response)
+		{
+			$scope.myData = response;
+
+			//$location.path(path);
+		});
+	}
+*/
+});
+
+app.controller('loadSearchItemCtrl',function($scope, $http, $routeParams, $location)
+{
+
+	$scope.retrieveData = function(path){
+
+		var serial = $scope.item;
+		$http.get('http://localhost:8080/Asset-Management/declaration-ws/getAsset/'+serial.serialnumber).success(function(response)
+		{
+			$scope.myData = response;
+
+			//$location.path(path);
+		});
 	}
 });
 
