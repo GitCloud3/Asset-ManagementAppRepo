@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.4.11
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 03, 2015 at 03:10 PM
--- Server version: 5.6.17
--- PHP Version: 5.5.12
+-- Host: localhost
+-- Generation Time: Jul 29, 2015 at 06:10 PM
+-- Server version: 10.0.20-MariaDB
+-- PHP Version: 5.6.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `declaration`
@@ -25,24 +25,23 @@ USE `declaration`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contact`
+-- Table structure for table `Contact`
 --
 
-CREATE TABLE IF NOT EXISTS `contact` (
-  `contactId` int(11) NOT NULL AUTO_INCREMENT,
-  `ownerId` varchar(13) COLLATE utf8_unicode_ci NOT NULL,
-  `telephone` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`contactId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+CREATE TABLE IF NOT EXISTS `Contact` (
+  `contactId` int(11) NOT NULL,
+  `ownerId` varchar(13) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `telephone` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `item`
+-- Table structure for table `Item`
 --
 
-CREATE TABLE IF NOT EXISTS `item` (
+CREATE TABLE IF NOT EXISTS `Item` (
   `serialnumber` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `type` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
@@ -51,18 +50,16 @@ CREATE TABLE IF NOT EXISTS `item` (
   `colour` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `date` date NOT NULL,
   `declarerId` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `ownerId` varchar(13) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`serialnumber`),
-  UNIQUE KEY `serialnumber` (`serialnumber`)
+  `ownerId` varchar(13) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `owner`
+-- Table structure for table `Owner`
 --
 
-CREATE TABLE IF NOT EXISTS `owner` (
+CREATE TABLE IF NOT EXISTS `Owner` (
   `ownerId` varchar(13) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `surname` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
@@ -71,11 +68,42 @@ CREATE TABLE IF NOT EXISTS `owner` (
   `country` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `city` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `title` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `province` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`ownerId`),
-  UNIQUE KEY `ownerId` (`ownerId`)
+  `province` varchar(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `Contact`
+--
+ALTER TABLE `Contact`
+  ADD PRIMARY KEY (`contactId`);
+
+--
+-- Indexes for table `Item`
+--
+ALTER TABLE `Item`
+  ADD PRIMARY KEY (`serialnumber`),
+  ADD UNIQUE KEY `serialnumber` (`serialnumber`);
+
+--
+-- Indexes for table `Owner`
+--
+ALTER TABLE `Owner`
+  ADD PRIMARY KEY (`ownerId`),
+  ADD UNIQUE KEY `ownerId` (`ownerId`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `Contact`
+--
+ALTER TABLE `Contact`
+  MODIFY `contactId` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
