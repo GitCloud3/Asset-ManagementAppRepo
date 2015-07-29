@@ -51,9 +51,9 @@ app.config(function($routeProvider){
 			templateUrl:'search.html',
 			controller:'searchItemCtrl'
 		})
-		.when('/declarationRecord', {
+		.when('/populate', {
 			templateUrl:'record.html',
-			controller:'loadSearchItemCtrl'
+			controller:'searchItemCtrl'
 		})
 		.otherwise({
 			redirectTo: '/'
@@ -233,30 +233,14 @@ app.controller('searchItemCtrl',function($scope, $http, $routeParams, $location)
 
 	});
 
-	/*$scope.retrieveData = function(path){
-
-		var serial = $scope.item;
-		$http.get('http://localhost:8080/Asset-Management/declaration-ws/getAsset/'+serial.serialnumber).success(function(response)
-		{
-			$scope.myData = response;
-
-			//$location.path(path);
-		});
-	}
-*/
-});
-
-app.controller('loadSearchItemCtrl',function($scope, $http, $routeParams, $location)
-{
-
 	$scope.retrieveData = function(path){
 
 		var serial = $scope.item;
 		$http.get('http://localhost:8080/Asset-Management/declaration-ws/getAsset/'+serial.serialnumber).success(function(response)
 		{
-			$scope.myData = response;
+			$scope.item = response;
 
-			//$location.path(path);
+			$location.path(path);
 		});
 	}
 });
