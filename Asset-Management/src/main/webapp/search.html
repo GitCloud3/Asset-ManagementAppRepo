@@ -36,18 +36,18 @@
 		<meta charset="UTF-8">
 
 	</head>
-	<body ng-controller="loadSearchItemCtrl">
+	<body ng-controller="populateDataCtrl">
 		<hr>
 			<ng-form novalidate name="searchForm" ng-submit="submitSearch()">
 				<div ng-form="searchForm">
 
 						Search: <input type="text" name="serialnumber" placeholder="serial number" ng-model="item.serialnumber" required/>
 						<span ng-show="searchForm.serialnumber.$dirty && searchForm.serialnumber.$error.required">search string is a required field</span>
-						<span ng-show="!availableRecord">no item matches the input string avaliable</span><br />
+						<span ng-show="!availableRecord">no record matches the input string is avaliable</span><br />
 				</div>
 			</ng-form>
 		</hr>
 		&nbsp;<br/>
-		<button type="submit" ng-disabled="searchForm.$invalid" ng-click="retrieveData('/declarationRecord')">retrieve</button>
+		<button type="submit" ng-disabled="searchForm.$invalid" ng-click="retrieveData('/populate')">retrieve</button>
 	</body>
 	</html>
