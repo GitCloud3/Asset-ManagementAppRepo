@@ -3,35 +3,74 @@
 	<head lang="en">
 		<meta charset="UTF-8">
 
+		<title>Asset Manager</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 	</head>
 	<body>
-		<div>
+		<div id="page-wrapper">
 
-			<header>
-				<h1>Asset Manager</h1>
-				<nav>
-					<a ng-href="#/"><font face="Comic sans MS" size="3"><big>Home</big></font></a>&nbsp;
-					<a ng-href="#/add"><font face="Comic sans MS" size="3"><big>Declare</big></font></a>&nbsp;
-					<a ng-href="#/list"><font face="Comic sans MS" size="3"><big>Declarations</big></font></a>
-					<a ng-href="#/retrieve"><font face="Comic sans MS" size="3"><big>Verify</big></font></a>
-				</nav>
-			</header>
-			&nbsp;
-			<div ng-view>
-				<!-- routed pages injected here-->
-			</div>
+			<!-- Header -->
+				<div id="header-wrapper">
+					<header id="header" class="container">
+						<div class="row">
+							<div class="12u">
+
+								<!-- Logo -->
+									<h1><a href="#" id="logo">Asset Manager</a></h1>
+
+								<!-- Nav -->
+									<nav id="nav">
+										<a href="#/">Home</a>
+										<a href="#/add">Declare</a>
+										<a href="#/list">Declarations</a>
+										<a href="#/retrieve">Verify</a>
+									</nav>
+
+							</div>
+						</div>
+					</header>
+					<div id="banner">
+						<div class="container">
+							<div class="row">
+								&nbsp;
+								<div ng-view>
+									<!-- routed pages injected here-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			<!-- Features -->
+
+
+			<!-- Copyright -->
+				<div id="copyright">
+					&copy; 2015 | Authoritative Lab Pro | All rights reserved.
+				</div>
 
 		</div>
 
-		<!-- scripts-->
-		<script type="text/javascript"
-				src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js"></script>
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/skel-viewport.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+			<!-- scripts-->
+			<script type="text/javascript"
+					src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js"></script>
 
-		<script type="text/javascript"
-				src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-route.min.js"></script>
+			<script type="text/javascript"
+					src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-route.min.js"></script>
 
-		<script
-				src="AstMngrControllers.js"></script>
+			<script
+					src="AstMngrControllers.js"></script>
 
 	</body>
 </html>

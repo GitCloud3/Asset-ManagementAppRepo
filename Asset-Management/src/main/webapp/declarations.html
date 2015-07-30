@@ -7,9 +7,10 @@
 	</head>
 	<body ng-controller="listCtrl">
 		<div>
-			<div >
+			<div>
 					Search: <input type="text" value="" placeholder="Global search" ng-model="search"/>
-					<table border="1">
+					<p></p>
+					<table>
 						<tr>
 							<td><strong>Serial#</strong></td>
 							<td><strong>Owner-ID#</strong></td>
@@ -42,4 +43,13 @@
 			</div>
 		</div>
 	</body>
+		<style type="text/css">
+		  table{
+		    border-collapse: collapse;
+		    border: 1px solid black;
+		  }
+		  table td{
+		    border: 1px solid black;
+		  }
+	</style>
 </html>
