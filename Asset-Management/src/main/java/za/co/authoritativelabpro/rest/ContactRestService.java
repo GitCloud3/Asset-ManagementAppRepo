@@ -1,11 +1,9 @@
 package za.co.authoritativelabpro.rest;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Collection;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -26,134 +24,135 @@ import javax.ws.rs.core.UriInfo;
 
 import org.jboss.logging.Logger;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import za.co.authoritativelabpro.api.ContactManager;
-import za.co.authoritativelabpro.api.ContactManager;
-import za.co.authoritativelabpro.api.ContactManager;
-import za.co.authoritativelabpro.converter.ContactParser;
+import za.co.authoritativelabpro.converter.TypeConverter;
 import za.co.authoritativelabpro.model.Contact;
-import za.co.authoritativelabpro.model.Contact;
-import za.co.authoritativelabpro.model.Owner;
 import za.co.authoritativelabpro.secure.UrlSigner;
 
 @Path("/")
 @RequestScoped
 public class ContactRestService {
-
-	@Inject
-	ContactManager contactManager;
+    
+    @Inject
+    ContactManager	      contactManager;
+    
+    @Context
+    private UriInfo	     uriInfo;
+    
+    private UrlSigner	   signer	  = new UrlSigner();
+    
+    private static final String HMAC_SHARED_KEY = "25125154dsad4da25=";
+    
+    private static final Logger log	     = Logger.getLogger(ContactRestService.class);
+    
+    @Path("getContacts")
+    @GET
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getContacts(@QueryParam("clientId")
+    String clientId, @QueryParam("signature")
+    String signature) throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException {
+	Response.ResponseBuilder builder = null;
 	
-	@Context
-	private UriInfo uriInfo;
+	System.out.println("Client generated key:" + signature);
 	
-	private UrlSigner signer = new UrlSigner();
-	private static final String HMAC_SHARED_KEY = "25125154dsad4da25=";
-	private static final Logger log = Logger.getLogger(ContactRestService.class);
+	String resourceUrl = uriInfo.getAbsolutePath().toString();
 	
+	String sign = signer.calculate(resourceUrl, clientId, HMAC_SHARED_KEY);
 	
-	@Path("getContacts")
-	@GET
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getContacts(@QueryParam("clientId") String clientId, @QueryParam("signature") String signature) throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException{
-		Response.ResponseBuilder builder = null;
-		
-		System.out.println("Client generated key:"+signature);
-		
-		String resourceUrl = uriInfo.getAbsolutePath().toString();
-		
-		String sign = signer.calculate(resourceUrl, clientId,HMAC_SHARED_KEY);
-		
-		System.out.println("Server generated key:"+sign);
-		
-		if(sign.equals(signature)){
-			log.info("getOwners");
-			builder = Response.ok(contactManager.getContacts());
-		}
-		else{	
-			builder = Response.status(Response.Status.UNAUTHORIZED).entity("Cunsumer not authorized to get read contacts");
-		}
-		
-		return builder.build();
+	System.out.println("Server generated key:" + sign);
+	
+	if (sign.equals(signature)) {
+	    log.info("getOwners");
+	    builder = Response.ok(contactManager.getContacts());
+	}
+	else {
+	    builder = Response.status(Response.Status.UNAUTHORIZED).entity("Cunsumer not authorized to get read contacts");
 	}
 	
+	return builder.build();
+    }
+    
+    @POST
+    @Path("createContact")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createContact(String contacts) {
 	
-	@POST
-	@Path("createContact")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createContact(String contacts) {
-		
-		Response.ResponseBuilder builder = null;
-		
-		ContactParser cp = new ContactParser();
-		
-		List<Contact> contactList = cp.passser(contacts);
-		
-		for(Contact contact : contactList){
-			contact.setOwnerId("7854265874895");
-			contactManager.addContact(contact);
-		}
-
-		builder = Response.status(Response.Status.ACCEPTED).entity("Cunsumer request to add new record was approved");;
-		
-		return builder.build();
+	Response.ResponseBuilder builder = null;
+	
+	TypeConverter<Contact> converter = new TypeConverter<Contact>(Contact.class);
+	
+	List<Contact> contactList = converter.convert(contacts);
+	
+	for (Contact contact : contactList) {
+	    contact.setOwnerId("7854265874895");
+	    contactManager.addContact(contact);
 	}
 	
-	@PUT
-	@Path("updateContact")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateContact(Contact contact){
-		System.out.println("Overwrite: "+contact.toString());
-		String result = contact.toString();
-		System.out.println(result);
-		contactManager.updateContact(contact);
-		return Response.ok(result).build();
+	builder = Response.status(Response.Status.ACCEPTED).entity("Cunsumer request to add new record was approved");;
+	
+	return builder.build();
+    }
+    
+    @PUT
+    @Path("updateContact")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateContact(Contact contact) {
+	System.out.println("Overwrite: " + contact.toString());
+	String result = contact.toString();
+	System.out.println(result);
+	contactManager.updateContact(contact);
+	return Response.ok(result).build();
+    }
+    
+    @GET
+    @Path("getContact/{id:\\d+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getContact(@PathParam("id")
+    String id) {
+	
+	Response.ResponseBuilder builder = null;
+	
+	log.info("getOwners");
+	builder = Response.ok(contactManager.getContact(id));
+	
+	return builder.build();
+    }
+    
+    @GET
+    @Path("getContactById/{id:\\d+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Contact getContactByRecordId(@PathParam("id")
+    int id) {
+	
+	return contactManager.getContactByRecordID(id);
+    }
+    
+    @DELETE
+    @Path("removeContact/{id:\\d+}")
+    @Consumes("*/*")
+    public Response removeContact(@PathParam("id")
+    String id, @QueryParam("clientId")
+    String clientId, @QueryParam("signature")
+    String signature) throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException {
+	Response.ResponseBuilder builder = null;
+	
+	System.out.println("Client generated key:" + signature);
+	
+	String resourceUrl = uriInfo.getAbsolutePath().toString();
+	
+	String sign = signer.calculate(resourceUrl, clientId, HMAC_SHARED_KEY);
+	
+	System.out.println("Server generated key:" + sign);
+	
+	if (sign.equals(signature)) {
+	    log.info("removeContact");
+	    builder = Response.ok(contactManager.removeContact(id));
+	}
+	else {
+	    builder = Response.status(Response.Status.UNAUTHORIZED).entity("Cunsumer not authorized to remove a contacts");
 	}
 	
-	@GET 
-	@Path("getContact/{id:\\d+}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getContact(@PathParam("id") String id){
-		
-		Response.ResponseBuilder builder = null;
-
-		log.info("getOwners");
-		builder = Response.ok(contactManager.getContact(id));
-
-		return builder.build();
-	}
-	@GET 
-	@Path("getContactById/{id:\\d+}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Contact getContactByRecordId(@PathParam("id") int id) {
-		
-		return contactManager.getContactByRecordID(id);
-	}
-	
-	@DELETE
-	@Path("removeContact/{id:\\d+}")
-	@Consumes("*/*")
-	public Response removeContact(@PathParam("id") String id, @QueryParam("clientId") String clientId, @QueryParam("signature") String signature) throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException {
-		Response.ResponseBuilder builder = null;
-		
-		System.out.println("Client generated key:"+signature);
-		
-		String resourceUrl = uriInfo.getAbsolutePath().toString();
-		
-		String sign = signer.calculate(resourceUrl, clientId,HMAC_SHARED_KEY);
-		
-		System.out.println("Server generated key:"+sign);
-		
-		if(sign.equals(signature)){
-			log.info("removeContact");
-			builder = Response.ok(contactManager.removeContact(id));
-		}
-		else{	
-			builder = Response.status(Response.Status.UNAUTHORIZED).entity("Cunsumer not authorized to remove a contacts");
-		}
-		
-		return builder.build();
-	}
+	return builder.build();
+    }
 }

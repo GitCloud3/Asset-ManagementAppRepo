@@ -30,110 +30,115 @@ import za.co.authoritativelabpro.secure.UrlSigner;
 @Path("/")
 @RequestScoped
 public class OwnerRestService {
-
-	@Inject
-	OwnerManager ownerManager;
+    
+    @Inject
+    OwnerManager		ownerManager;
+    
+    @Context
+    private UriInfo	     uriInfo;
+    
+    private UrlSigner	   signer	  = new UrlSigner();
+    
+    private static final Logger log	     = Logger.getLogger(OwnerRestService.class);
+    
+    private static final String HMAC_SHARED_KEY = "25125154dsad4da25=";
+    
+    @Path("getOwners")
+    @GET
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getOwners(@QueryParam("clientId")
+    String clientId, @QueryParam("signature")
+    String signature) throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException {
 	
-	@Context
-	private UriInfo uriInfo;
+	Response.ResponseBuilder builder = null;
 	
-	private UrlSigner signer = new UrlSigner();
+	System.out.println("Client generated key:" + signature);
 	
-	private static final Logger log = Logger.getLogger(OwnerRestService.class);
+	String resourceUrl = uriInfo.getAbsolutePath().toString();
 	
-	private static final String HMAC_SHARED_KEY = "25125154dsad4da25=";
+	String sign = signer.calculate(resourceUrl, clientId, HMAC_SHARED_KEY);
 	
-	@Path("getOwners")
-	@GET
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getOwners(@QueryParam("clientId") String clientId, @QueryParam("signature") String signature) throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException {	
-		
-		Response.ResponseBuilder builder = null;
-		
-		System.out.println("Client generated key:"+signature);
-		
-		String resourceUrl = uriInfo.getAbsolutePath().toString();
-		
-		String sign = signer.calculate(resourceUrl, clientId,HMAC_SHARED_KEY);
-		
-		System.out.println("Server generated key:"+sign);
-		
-		if(sign.equals(signature)){
-			log.info("getOwners");
-			builder = Response.ok(ownerManager.getOwners());
-		}
-		else{	
-			builder = Response.status(Response.Status.UNAUTHORIZED).entity("Cunsumer not authorized to get read owners");
-		}
-		
-		return builder.build();
+	System.out.println("Server generated key:" + sign);
+	
+	if (sign.equals(signature)) {
+	    log.info("getOwners");
+	    builder = Response.ok(ownerManager.getOwners());
+	}
+	else {
+	    builder = Response.status(Response.Status.UNAUTHORIZED).entity("Cunsumer not authorized to get read owners");
 	}
 	
-	@POST
-	@Path("createOwner")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createOwner(Owner owner) {
-		Response.ResponseBuilder builder = null;
-		
-		System.out.println(owner.toString());
-		
-		ownerManager.addOwner(owner);
-			
-		builder = Response.status(Response.Status.ACCEPTED).entity("Cunsumer request to add new record was approved");;
-		
-		return builder.build();
-	}
+	return builder.build();
+    }
+    
+    @POST
+    @Path("createOwner")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createOwner(Owner owner) {
+	Response.ResponseBuilder builder = null;
 	
-	@PUT
-	@Path("updateOwner")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response update(Owner owner) {
-
-		Response.ResponseBuilder builder = null;
-		
-		log.info("getOwner");
-		builder = Response.ok(ownerManager.updateOwner(owner));
-		
-		return builder.build();		
-	}
+	System.out.println(owner.toString());
 	
-	@GET 
-	@Path("getOwner/{id:\\d+}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getOwner(@PathParam("id") String id){
-		
-		Response.ResponseBuilder builder = null;
-		
-		log.info("getOwner");
-		builder = Response.ok(ownerManager.getOwner(id));
-		
-		return builder.build();
-	}
+	ownerManager.addOwner(owner);
 	
-	@GET 
-	@Path("getOwnerRecord/{id:\\d+}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getOwnerRecor(@PathParam("id") String id){
-		
-		Response.ResponseBuilder builder = null;
-		
-		log.info("getOwner");
-		builder = Response.ok(ownerManager.getOwnerRecord(id));
-		
-		return builder.build();
-	}
+	builder = Response.status(Response.Status.ACCEPTED).entity("Cunsumer request to add new record was approved");;
 	
-	@DELETE
-	@Path("removeOwner/{id:\\d+}")
-	@Consumes("*/*")
-	public Response removeOwner(@PathParam("id") String id){
-
-		log.info("remove");
-		System.out.println(id);
-		ownerManager.removeOwner(id);
-		
-		return Response.noContent().build();
-	}
+	return builder.build();
+    }
+    
+    @PUT
+    @Path("updateOwner")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response update(Owner owner) {
 	
+	Response.ResponseBuilder builder = null;
+	
+	log.info("getOwner");
+	builder = Response.ok(ownerManager.updateOwner(owner));
+	
+	return builder.build();
+    }
+    
+    @GET
+    @Path("getOwner/{id:\\d+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getOwner(@PathParam("id")
+    String id) {
+	
+	Response.ResponseBuilder builder = null;
+	
+	log.info("getOwner");
+	builder = Response.ok(ownerManager.getOwner(id));
+	
+	return builder.build();
+    }
+    
+    @GET
+    @Path("getOwnerRecord/{id:\\d+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getOwnerRecor(@PathParam("id")
+    String id) {
+	
+	Response.ResponseBuilder builder = null;
+	
+	log.info("getOwner");
+	builder = Response.ok(ownerManager.getOwnerRecord(id));
+	
+	return builder.build();
+    }
+    
+    @DELETE
+    @Path("removeOwner/{id:\\d+}")
+    @Consumes("*/*")
+    public Response removeOwner(@PathParam("id")
+    String id) {
+	
+	log.info("remove");
+	System.out.println(id);
+	ownerManager.removeOwner(id);
+	
+	return Response.noContent().build();
+    }
+    
 }

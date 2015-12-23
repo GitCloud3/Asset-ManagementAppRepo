@@ -16,53 +16,54 @@ import za.co.authoritativelabpro.model.Item;
 
 @Stateless
 public class ItemBean implements ItemManager {
+    
+    @PersistenceContext(name = "declarationPU")
+    private EntityManager       em;
+    
+    private static final Logger log = Logger.getLogger(ItemBean.class);
+    
+    public String removeItem(String id) {
+	// TODO Auto-generated method stub
+	log.info("em: removeItem");
+	Item item = em.find(Item.class, id);
+	em.remove(item);
+	return "Item removed";
+    }
+    
+    public Item addItem(Item item) {
+	// TODO Auto-generated method stub
+	log.info("em: addItem");
+	em.persist(item);
+	return item;
+    }
+    
+    @SuppressWarnings("unchecked")
+    public List<Item> getItem(String ownerId) {
+	// TODO Auto-generated method stub
+	log.info("em: getItem");
+	Query query = em.createQuery("SELECT i FROM Item i WHERE i.ownerId = ?1");
+	query.setParameter(1, ownerId);
+	return new ArrayList<Item>(query.getResultList());
+    }
+    
+    public Item getAsset(String serial) {
+	log.info("em: getAsset");
 	
-	@PersistenceContext(name="declarationPU")
-	private EntityManager em;
-	private static final Logger log = Logger.getLogger(ItemBean.class);
+	return em.find(Item.class, serial);
+    }
+    
+    public List<Item> getItems() {
+	// TODO Auto-generated method stub
+	List<Item> items = em.createQuery("SELECT o FROM Item o", Item.class).getResultList();
 	
-	public String removeItem(String id) {
-		// TODO Auto-generated method stub
-		log.info("em: removeItem");
-		Item item = em.find(Item.class, id);
-		em.remove(item);
-		return "Item removed";
-	}
-
-	public Item addItem(Item item) {
-		// TODO Auto-generated method stub
-		log.info("em: addItem");
-		em.persist(item);
-		return item;
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<Item> getItem(String ownerId) {
-		// TODO Auto-generated method stub
-		log.info("em: getItem");
-		Query query = em.createQuery("SELECT i FROM Item i WHERE i.ownerId = ?1");
-		query.setParameter(1, ownerId);
-		return new ArrayList<Item>(query.getResultList());
-	}
-	
-	public Item getAsset(String serial){
-		log.info("em: getAsset");
-		
-		return em.find(Item.class, serial);
-	}
-
-	public List<Item> getItems() {
-		// TODO Auto-generated method stub
-		List<Item> items = em.createQuery("SELECT o FROM Item o", Item.class).getResultList();
-		
-		return items;
-	}
-
-	public String updateItem(Item item) {
-		// TODO Auto-generated method stub
-		log.info("em: updateItem");
-		em.merge(item);
-		return "Item updated!";
-	}
-
+	return items;
+    }
+    
+    public String updateItem(Item item) {
+	// TODO Auto-generated method stub
+	log.info("em: updateItem");
+	em.merge(item);
+	return "Item updated!";
+    }
+    
 }

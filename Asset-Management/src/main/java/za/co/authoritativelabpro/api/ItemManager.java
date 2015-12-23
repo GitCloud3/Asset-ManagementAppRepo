@@ -8,21 +8,21 @@ import za.co.authoritativelabpro.model.Item;
 
 @Local
 public interface ItemManager {
-	
-	/**
-	 * Dealing with the child entity - Item
-	 *
-	 */
-	public String removeItem(String id);
-	
-	public Item addItem(Item item);
-	
-	public List<Item> getItem(String id);
-	
-	public Item getAsset(String serial);
-	
-	public List<Item> getItems();
-	
-	public String updateItem(Item item);
-	
+    
+    /**
+     * Dealing with the child entity - Item
+     * 
+     */
+    public String removeItem(String id);
+    
+    public Item addItem(Item item);
+    
+    public List<Item> getItem(String id);
+    
+    public Item getAsset(String serial);
+    
+    public List<Item> getItems();
+    
+    public String updateItem(Item item);
+    
 }

@@ -13,100 +13,96 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.jboss.logging.Logger;
 
-import za.co.authoritativelabpro.api.ContactManager;
 import za.co.authoritativelabpro.api.ItemManager;
-import za.co.authoritativelabpro.api.OwnerManager;
-import za.co.authoritativelabpro.converter.ContactParser;
-import za.co.authoritativelabpro.converter.ItemParser;
-import za.co.authoritativelabpro.model.Contact;
+import za.co.authoritativelabpro.converter.TypeConverter;
 import za.co.authoritativelabpro.model.Item;
-import za.co.authoritativelabpro.model.Owner;
 
 @Path("/")
 @RequestScoped
 public class ItemRestService {
+    
+    @Inject
+    ItemManager		 itemManager;
+    
+    private static final Logger log = Logger.getLogger(ItemRestService.class);
+    
+    @Path("getItems")
+    @GET
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Item> getItems() {
+	log.info("getItems");
+	return itemManager.getItems();
+    }
+    
+    @POST
+    @Path("createItem")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createItem(String items) {
 	
-	@Inject
-	ItemManager itemManager;
+	Response.ResponseBuilder builder = null;
 	
-	private static final Logger log = Logger.getLogger(ItemRestService.class);
+	TypeConverter<Item> converter = new TypeConverter<Item>(Item.class);
 	
-	@Path("getItems")
-	@GET
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Item> getItems(){
-		log.info("getItems");
-		return itemManager.getItems();
+	List<Item> itemList = converter.convert(items);
+	
+	for (Item item : itemList) {
+	    item.setOwnerId("7854265874895");
+	    item.setDeclarationDate(new Date());
+	    itemManager.addItem(item);
 	}
 	
+	builder = Response.status(Response.Status.ACCEPTED).entity("Cunsumer request to add new record was approved");;
 	
-	@POST
-	@Path("createItem")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createItem(String items){
-		System.out.println("------------- "+items);
-		Response.ResponseBuilder builder = null;
-		
-		ItemParser cp = new ItemParser();
-		
-		List<Item> itemList = cp.passser(items);
-		
-		for(Item item : itemList){
-			item.setOwnerId("7854265874895");
-			item.setDeclarationDate(new Date());
-			itemManager.addItem(item);
-		}
-
-		builder = Response.status(Response.Status.ACCEPTED).entity("Cunsumer request to add new record was approved");;
-		
-		return builder.build();
-	}
+	return builder.build();
+    }
+    
+    @PUT
+    @Path("updateItem")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateItem(Item item) {
+	System.out.println("Overwrite: " + item.toString());
+	String result = item.toString();
+	System.out.println(result);
+	itemManager.updateItem(item);
+	return Response.ok(result).build();
+    }
+    
+    @GET
+    @Path("getItem/{id:\\d+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Item> getItem(@PathParam("id")
+    String id) {
 	
-	@PUT
-	@Path("updateItem")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateItem(Item item){
-		System.out.println("Overwrite: "+item.toString());
-		String result = item.toString();
-		System.out.println(result);
-		itemManager.updateItem(item);
-		return Response.ok(result).build();
-	}
+	return itemManager.getItem(id);
+    }
+    
+    @GET
+    @Path("getAsset/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getItemBySerial(@PathParam("id")
+    String id) {
 	
-	@GET 
-	@Path("getItem/{id:\\d+}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Item> getItem(@PathParam("id") String id){
-		
-		return itemManager.getItem(id);
-	}
+	Response.ResponseBuilder builder = null;
 	
-	@GET 
-	@Path("getAsset/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getItemBySerial(@PathParam("id") String id){
-		
-		Response.ResponseBuilder builder = null;
-		
-		log.info("getOwner");
-		builder = Response.ok(itemManager.getAsset(id));
-		
-		return builder.build();	
-	}
+	log.info("getOwner");
+	builder = Response.ok(itemManager.getAsset(id));
 	
-	@DELETE
-	@Path("removeItem/{id:\\d+}")
-	@Consumes("*/*")
-	public void removeItem(@PathParam("id") String id){
-		log.info("removeItem");
-		System.out.println(id);
-		itemManager.removeItem(id);
-	}
+	return builder.build();
+    }
+    
+    @DELETE
+    @Path("removeItem/{id:\\d+}")
+    @Consumes("*/*")
+    public void removeItem(@PathParam("id")
+    String id) {
+	log.info("removeItem");
+	System.out.println(id);
+	itemManager.removeItem(id);
+    }
 }
